@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pro Earning Dashboard • Nep X Trade</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root{
+      --bg-1: #0f1724;
+      --bg-2: #071227;
+      --card: rgba(255,255,255,0.03);
+      --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
+      --glass: rgba(255,255,255,0.04);
+      --muted: rgba(255,255,255,0.65);
+      --success: #16a34a;
+      --danger: #ef4444;
+      font-family: 'Poppins', sans-serif;
+    }
+    .withdraw-btn {
+  background: linear-gradient(135deg, #ff7b00, #ff4500); /* Gradient orange */
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.withdraw-btn:hover {
+  background: linear-gradient(135deg, #ff4500, #ff7b00); /* Reverse gradient on hover */
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.withdraw-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071227 0%, #0b1220 100%);color:#e6eef8}
+
+    /* Layout */
+    .app{display:flex;min-height:100vh;}
+
+    /* Sidebar */
+    .sidebar{width:260px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(6px);padding:24px;}
+    .brand{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
+    .logo{width:64px;height:64px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 6px 20px rgba(12,8,24,0.6)}
+    .brand h1{font-size:18px;margin:10px 0 0}
+    .brand p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+
+    nav.menu{margin-top:14px}
+    nav.menu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:inherit;text-decoration:none;margin-bottom:6px;transition:all .18s}
+    nav.menu a i{width:22px;text-align:center}
+    nav.menu a:hover, nav.menu a.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));transform:translateX(6px)}
+
+    .profile-card{margin-top:18px;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;gap:12px;align-items:center}
+    .profile-card img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
+    .profile-card .meta{font-size:13px}
+    .meta .name{font-weight:600}
+    .meta .level{font-size:12px;color:var(--muted)}
+
+    /* Main */
+    .main{flex:1;padding:22px;}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .search{display:flex;gap:10px;align-items:center;background:var(--glass);padding:10px 12px;border-radius:10px;min-width:320px}
+    .search input{background:transparent;border:0;outline:none;color:inherit;font-size:14px}
+    .top-actions{display:flex;gap:12px;align-items:center}
+    .icon-btn{padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .col-span-3{grid-column:span 3}
+    .col-span-6{grid-column:span 6}
+    .col-span-4{grid-column:span 4}
+    .col-span-8{grid-column:span 8}
+
+    .card .title{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .big-value{font-size:20px;font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* Chart container */
+    .chart-wrap{height:220px}
+
+    /* Tasks & Transactions */
+    .task{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));}
+    .task .left{display:flex;gap:12px;align-items:center}
+    .task .left .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    table thead th{text-align:left;padding:10px;color:var(--muted);font-weight:600}
+    table tbody td{padding:12px;border-top:1px solid rgba(255,255,255,0.02)}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .sidebar{display:none}
+      .grid{grid-template-columns:repeat(6,1fr)}
+      .col-span-3{grid-column:span 3}
+      .col-span-6{grid-column:span 6}
+    }
+    @media (max-width:600px){
+      .main{padding:12px}
+      .topbar{flex-direction:column;align-items:flex-start;gap:12px}
+      .grid{grid-template-columns:repeat(1,1fr)}
+      .col-span-3,.col-span-4,.col-span-6,.col-span-8{grid-column:span 1}
+    }
+
+    /* subtle animations */
+    .card{transition:transform .18s,box-shadow .18s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">NX</div>
+        <h1>Nep X Trade</h1>
+        <p>Earn • Grow • Withdraw</p>
+      </div>
+
+      <nav class="menu">
+        <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-wallet"></i> Earnings</a>
+        <a href="#"><i class="fas fa-list-check"></i> Tasks</a>
+        <a href="#"><i class="fas fa-user-plus"></i> Referrals</a>
+        <a href="#"><i class="fas fa-money-check"></i> Wallet</a>
+        <a href="#"><i class="fas fa-star"></i> VIP</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+      </nav>
+
+      <div class="profile-card">
+        <img src="https://i.pravatar.cc/100" alt="User">
+        <div class="meta">
+          <div class="name">Suman KC</div>
+          <div class="level">VIP Member • Level 5</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="search">
+            <i class="fas fa-magnifying-glass"></i>
+            <input placeholder="Search tasks, transactions, users..." />
+          </div>
+          <div style="display:flex;flex-direction:column">
+            <div style="font-weight:700">Welcome back, Suman 👋</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6)">Last login: Aug 30, 2025</div>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-btn"><i class="fas fa-bell"></i></button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn ghost">Withdraw</button>
+            <button class="btn primary">Start Task</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="grid">
+        <!-- Cards -->
+        <div class="card col-span-3">
+          <div class="title">Total Balance</div>
+          <div class="big-value">NPR 12,450.00</div>
+          <div class="muted">Available balance • Updated just now</div>
+          <div class="actions">
+            <!-- Withdraw Button -->
+<button class="withdraw-btn" onclick="window.location.href='withdraw.html'">
+  💸 Withdraw
+</button>
+            <button class="btn ghost">Deposit</button>
+          </div>
+        </div>
+
+        <div class="card col-span-3">
+          <div class="title">Today's Earnings</div>
+          <div class="big-value">NPR 420.00</div>
+          <div class="muted">From tasks & referrals</div>
+        </div>
+
+        <div class="card col-span-3">
+          <div class="title">Pending Withdrawals</div>
+          <div class="big-value">NPR 2,300.00</div>
+          <div class="muted">Processing — 1-2 business days</div>
+        </div>
+
+        <div class="card col-span-3">
+          <div class="title">Referral Income</div>
+          <div class="big-value">NPR 6,800.00</div>
+          <div class="muted">Active refs: 38</div>
+        </div>
+
+        <!-- Earnings chart -->
+        <div class="card col-span-8">
+          <div class="title">Earnings Trend</div>
+          <div class="chart-wrap"><canvas id="earningsChart"></canvas></div>
+        </div>
+
+        <!-- Tasks list -->
+        <div class="card col-span-4">
+          <div class="title">Tasks & Activity</div>
+          <div style="margin-top:10px">
+            <div class="task">
+              <div class="left">
+                <div class="icon" style="background:linear-gradient(90deg,#ffd166,#f97316)"><i class="fas fa-play"></i></div>
+                <div>
+                  <div style="font-weight:600">Watch short videos</div>
+                  <div class="muted">Reward: NPR 15 • 12 mins</div>
+                </div>
+              </div>
+              <div><button class="btn primary">Start</button></div>
+            </div>
+
+            <div class="task">
+              <div class="left">
+                <div class="icon" style="background:linear-gradient(90deg,#60a5fa,#3b82f6)"><i class="fas fa-file-contract"></i></div>
+                <div>
+                  <div style="font-weight:600">Complete survey</div>
+                  <div class="muted">Reward: NPR 120 • 8 mins</div>
+                </div>
+              </div>
+              <div><button class="btn primary">Start</button></div>
+            </div>
+
+            <div class="task">
+              <div class="left">
+                <div class="icon" style="background:linear-gradient(90deg,#34d399,#059669)"><i class="fas fa-user-plus"></i></div>
+                <div>
+                  <div style="font-weight:600">Invite friend (Referral)</div>
+                  <div class="muted">Reward: NPR 100 • Instant</div>
+                </div>
+              </div>
+              <div><button class="btn ghost">Share</button></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="card col-span-8">
+          <div class="title">Transaction History</div>
+          <div style="margin-top:12px;overflow:auto;max-height:240px">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td>+NPR 120.00</td></tr>
+                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td>-NPR 1,200.00</td></tr>
+                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td>+NPR 100.00</td></tr>
+                <tr><td>2025-08-28</td><td>Credit</td><td>Video earnings</td><td>+NPR 15.00</td></tr>
+                <tr><td>2025-08-27</td><td>Pending</td><td>Withdrawal</td><td>-NPR 1,100.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // sample earnings chart
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    const earningsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Aug 25','Aug 26','Aug 27','Aug 28','Aug 29','Aug 30','Aug 31'],
+        datasets: [{
+          label: 'Earnings (NPR)',
+          data: [150, 200, 80, 120, 95, 420, 480],
+          tension: 0.3,
+          borderWidth: 2,
+          fill: true,
+          backgroundColor: 'rgba(124,58,237,0.14)',
+          borderColor: 'rgba(124,58,237,0.95)',
+          pointRadius: 3
+        }]
+      },
+      options: {
+        plugins:{legend:{display:false}},
+        scales: {
+          x: {grid:{display:false},ticks:{color:'rgba(255,255,255,0.7)'}},
+          y: {grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.7)'}}
+        }
+      }
+    });
+  </script>
+</body>
+</html>
