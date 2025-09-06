@@ -206,7 +206,7 @@
 
     function buyNow(btn){
       const name=btn.dataset.name, price=btn.dataset.price;
-      const phone='97798XXXXXXXX'; // Replace with your WhatsApp
+      const phone='9779704888854'; // Replace with your WhatsApp
       const msg=encodeURIComponent(`Hello Nep X Trade, I want to buy: ${name} (Price: ${price}).`);
       const url=`https://wa.me/${phone}?text=${msg}`;
       showLoading(800); setTimeout(()=>{window.open(url,'_blank');},250);
@@ -215,5 +215,6 @@
   </script>
 </body>
 </html>
+
 
 
