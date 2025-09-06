@@ -209,16 +209,16 @@
   const packageIdInput = document.getElementById('packageId');
   const packageError = document.getElementById('packageError');
 
-  buyPackageBtn.addEventListener('click', () => {
-    const packageId = packageIdInput.value.trim();
-    if(packageId === ''){
-      packageError.textContent = 'You need to buy a package to create an account.';
-    } else {
-      const message = `Hello, I want to buy a package ID for NepX Investor.`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+ function buyNow(btn){
+      const name=btn.dataset.name, price=btn.dataset.price;
+      const phone='9779704888854'; // Replace with your WhatsApp
+      const msg=encodeURIComponent(`Hello Nep X Trade, I want to buy: ${name} (Price: ${price}).`);
+      const url=`https://wa.me/${phone}?text=${msg}`;
+      showLoading(800); setTimeout(()=>{window.open(url,'_blank');},250);
     }
   });
 </script>
 </body>
 </html>
+
 
