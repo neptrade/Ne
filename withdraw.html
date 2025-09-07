@@ -9,12 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0f172a; /* slate-900 */
+      --bg1:#0f172a;
       --bg2:#0b1023;
-      --primary:#22d3ee; /* cyan-400 */
-      --secondary:#a78bfa; /* violet-400 */
-      --accent:#34d399; /* emerald-400 */
-      --danger:#fb7185; /* rose-400 */
+      --primary:#22d3ee;
+      --secondary:#a78bfa;
+      --accent:#34d399;
+      --danger:#fb7185;
       --surface:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.12);
       --text:#e5e7eb;
@@ -34,7 +34,6 @@
     }
     @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-    /* Floating stickers */
     .sticker{position:fixed; inset:auto; pointer-events:none; opacity:.25; filter:blur(1px);}
     .sticker svg{width:140px; height:140px}
     .sticker.s1{top:6%; left:4%; animation: float 8s ease-in-out infinite}
@@ -43,7 +42,6 @@
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
     .container{min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:32px}
-
     .card{
       width:100%; max-width:900px; background:linear-gradient( to bottom right, rgba(255,255,255,.08), rgba(255,255,255,.04) );
       border:1px solid var(--border); border-radius:var(--radius); backdrop-filter: blur(var(--card-blur));
@@ -64,13 +62,10 @@
     .btn.ghost{background:transparent}
 
     .card-body{padding:26px; display:grid; gap:20px}
-
-    /* Stepper / breadcrumb */
     .stepper{display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:.9rem}
     .dot{width:9px; height:9px; border-radius:50%; background:var(--border)}
     .step.active{color:var(--text); font-weight:600}
 
-    /* METHOD GRID */
     .grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
     @media (min-width:720px){.grid{grid-template-columns:repeat(4, minmax(0,1fr))}}
 
@@ -81,11 +76,9 @@
     }
     .method:hover{transform:translateY(-3px); box-shadow:0 12px 24px rgba(0,0,0,.35)}
     .method:after{content:""; position:absolute; inset:auto -20% -60% -20%; height:60%; background:radial-gradient(circle at 50% 0%, rgba(34,211,238,.18), transparent 60%)}
-
     .method-logo{display:flex; align-items:center; gap:10px}
     .badge{padding:6px 10px; border-radius:999px; font-size:.75rem; font-weight:700; letter-spacing:.3px; background:rgba(255,255,255,.08); border:1px solid var(--border)}
 
-    /* FORM */
     .form{display:grid; gap:16px; max-width:560px}
     .field{display:grid; gap:8px}
     .label{font-size:.9rem; color:var(--muted)}
@@ -98,44 +91,29 @@
     .icon{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.8}
 
     .helper{font-size:.8rem; color:var(--muted)}
-
-    /* NOTICES */
     .notice{padding:14px 16px; border-radius:14px; border:1px dashed var(--border); background:rgba(255,255,255,.04); color:var(--muted)}
-
-    /* PROCESS/RECEIPT */
     .center{display:grid; place-items:center; text-align:center; gap:14px}
     .spinner{width:60px; height:60px; border-radius:50%; border:6px solid rgba(255,255,255,.15); border-top-color:var(--primary); animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     .progress{width:100%; max-width:420px; height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden}
     .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--primary), var(--secondary)); animation: load 2.4s ease forwards}
     @keyframes load{to{width:100%}}
-
     .receipt{width:100%; max-width:620px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border-radius:20px; overflow:hidden}
     .receipt-head{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px dashed var(--border)}
     .receipt-body{padding:20px; display:grid; gap:10px}
     .row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.06)}
     .row:last-child{border-bottom:none}
     .k{color:var(--muted)}
-
-    /* FAB refresh */
     .fab{position:fixed; bottom:20px; right:20px; padding:14px 16px; border-radius:16px; z-index:50}
-
-    /* subtle scroll reveal */
     [data-reveal]{opacity:0; transform:translateY(10px); transition:.5s}
     [data-reveal].show{opacity:1; transform:none}
   </style>
 </head>
 <body>
-
-  <!-- stickers / decorative shapes -->
+  <!-- stickers -->
   <div class="sticker s1" aria-hidden="true">
     <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop stop-color="#22d3ee"/>
-          <stop offset="1" stop-color="#a78bfa"/>
-        </linearGradient>
-      </defs>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
       <circle cx="60" cy="60" r="58" stroke="url(#g1)" stroke-width="4" opacity=".6"/>
     </svg>
   </div>
@@ -161,75 +139,31 @@
           </div>
         </div>
         <div class="actions">
-          <button class="btn ghost" id="btnBack" title="Back" aria-label="Go Back">⟵ Back</button>
-          <button class="btn" id="btnRefresh" title="Refresh" aria-label="Refresh">⟲ Refresh</button>
+          <button class="btn ghost" id="btnBack" title="Back">⟵ Back</button>
+          <button class="btn" id="btnRefresh" title="Refresh">⟲ Refresh</button>
         </div>
       </header>
 
       <div class="card-body">
         <div class="stepper" id="stepper">
-          <span class="step active">1. Select Method</span>
-          <span class="dot"></span>
-          <span class="step">2. Fill Details</span>
-          <span class="dot"></span>
-          <span class="step">3. Processing</span>
-          <span class="dot"></span>
+          <span class="step active">1. Select Method</span><span class="dot"></span>
+          <span class="step">2. Fill Details</span><span class="dot"></span>
+          <span class="step">3. Processing</span><span class="dot"></span>
           <span class="step">4. Receipt</span>
         </div>
 
-        <!-- VIEW: METHODS -->
         <div id="view-methods" data-reveal>
           <h2 style="margin:6px 0 14px">Withdraw Money</h2>
           <p class="helper" style="margin-top:-6px; margin-bottom:16px">Choose a method to continue</p>
           <div class="grid">
-            <button class="method" data-method="esewa" aria-label="Withdraw with eSewa">
-              <div class="method-logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10" fill="#22c55e"/>
-                  <path d="M7.5 12h9" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 7.5v9" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <strong>eSewa</strong>
-              </div>
-              <span class="badge">Instant</span>
-            </button>
-
-            <button class="method" data-method="khalti" aria-label="Withdraw with Khalti">
-              <div class="method-logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="3" y="4" width="18" height="16" rx="4" fill="#7c3aed"/>
-                  <path d="M8 8h8v8H8z" stroke="white" stroke-width="2"/>
-                </svg>
-                <strong>Khalti</strong>
-              </div>
-              <span class="badge">Wallet</span>
-            </button>
-
-            <button class="method" data-method="bank" aria-label="Withdraw to Bank">
-              <div class="method-logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M3 9l9-5 9 5v2H3V9Zm1 3h16v7H4v-7Z" fill="#38bdf8"/>
-                </svg>
-                <strong>Bank</strong>
-              </div>
-              <span class="badge">NEFT</span>
-            </button>
-
-            <button class="method" data-method="card" aria-label="Withdraw to Card">
-              <div class="method-logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="3" fill="#22d3ee"/>
-                  <rect x="5" y="9" width="14" height="2" fill="#0b1023" opacity=".6"/>
-                </svg>
-                <strong>Card</strong>
-              </div>
-              <span class="badge">Visa/Master</span>
-            </button>
+            <button class="method" data-method="esewa" aria-label="eSewa"><div class="method-logo"><svg width="28" height="28"><circle cx="12" cy="12" r="10" fill="#22c55e"/><path d="M7.5 12h9 M12 7.5v9" stroke="white" stroke-width="2" stroke-linecap="round"/></svg><strong>eSewa</strong></div><span class="badge">Instant</span></button>
+            <button class="method" data-method="khalti" aria-label="Khalti"><div class="method-logo"><svg width="28" height="28"><rect x="3" y="4" width="18" height="16" rx="4" fill="#7c3aed"/><path d="M8 8h8v8H8z" stroke="white" stroke-width="2"/></svg><strong>Khalti</strong></div><span class="badge">Wallet</span></button>
+            <button class="method" data-method="bank" aria-label="Bank"><div class="method-logo"><svg width="28" height="28"><path d="M3 9l9-5 9 5v2H3V9Zm1 3h16v7H4v-7Z" fill="#38bdf8"/></svg><strong>Bank</strong></div><span class="badge">NEFT</span></button>
+            <button class="method" data-method="card" aria-label="Card"><div class="method-logo"><svg width="28" height="28"><rect x="3" y="5" width="18" height="14" rx="3" fill="#22d3ee"/><rect x="5" y="9" width="14" height="2" fill="#0b1023" opacity=".6"/></svg><strong>Card</strong></div><span class="badge">Visa/Master</span></button>
           </div>
           <div class="notice" style="margin-top:16px">Tip: You can use the ⟵ Back button anytime to return here.</div>
         </div>
 
-        <!-- VIEW: FORM -->
         <div id="view-form" hidden data-reveal>
           <h2 id="formTitle" style="margin:6px 0 6px">Enter Details</h2>
           <p id="formSubtitle" class="helper" style="margin-top:-4px; margin-bottom:12px"></p>
@@ -239,28 +173,26 @@
               <label class="label" for="amount">Amount</label>
               <div class="input-wrap">
                 <span class="icon" aria-hidden="true">₨</span>
-                <input id="amount" name="amount" class="input" inputmode="decimal" placeholder="Enter amount" required />
+                <input id="amount" name="amount" class="input" inputmode="decimal" placeholder="Enter amount (₨2,500–₨50,000)" required />
               </div>
-              <small class="helper">Minimum ₨10 • No spaces or commas</small>
+              <small class="helper">Only amounts between ₨2,500 and ₨50,000 are allowed</small>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
-              <button type="button" class="btn" data-quick="500">₨500</button>
-              <button type="button" class="btn" data-quick="1000">₨1,000</button>
-              <button type="button" class="btn" data-quick="2000">₨2,000</button>
+              <button type="button" class="btn" data-quick="2500">₨2,500</button>
+              <button type="button" class="btn" data-quick="5000">₨5,000</button>
+              <button type="button" class="btn" data-quick="10000">₨10,000</button>
             </div>
             <button type="submit" class="btn primary" id="btnWithdraw">Withdraw</button>
             <div class="notice">Your information is encrypted and processed securely.</div>
           </form>
         </div>
 
-        <!-- VIEW: PROCESSING -->
         <div id="view-processing" class="center" hidden data-reveal>
           <div class="spinner" role="status" aria-label="Processing"></div>
           <div class="progress"><div class="bar"></div></div>
           <p class="helper">Processing your withdrawal… please wait</p>
         </div>
 
-        <!-- VIEW: RECEIPT -->
         <div id="view-receipt" hidden data-reveal>
           <div class="receipt">
             <div class="receipt-head">
@@ -304,44 +236,34 @@
     function setStep(i){ steps.forEach((s,idx)=> s.classList.toggle('active', idx<=i)); }
 
     const state = { method:null, payload:{} };
-
     const btnBack = document.getElementById('btnBack');
     const btnRefresh = document.getElementById('btnRefresh');
     const fabTop = document.getElementById('fabTop');
 
-    btnBack.addEventListener('click', ()=>{
-      if (!state.method) return show('methods', 0);
-      if (views.processing.hidden && views.receipt.hidden) return show('methods', 0);
-      show('methods', 0);
-      state.method = null;
-    });
+    btnBack.addEventListener('click', ()=>{ state.method=null; show('methods',0); });
     btnRefresh.addEventListener('click', ()=> window.location.reload());
     fabTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    // method selection
     document.querySelectorAll('.method').forEach(el=>{
       el.addEventListener('click', ()=>{
         const m = el.getAttribute('data-method');
         state.method = m;
         buildForm(m);
-        show('form', 1);
+        show('form',1);
       });
     });
 
-    // reveal on scroll
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if (e.isIntersecting) e.target.classList.add('show'); });
-    }, {threshold: .12});
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    },{threshold:.12});
     document.querySelectorAll('[data-reveal]').forEach(el=> io.observe(el));
 
-    // dynamic form builder
     const dynamic = document.getElementById('dynamicFields');
     const formTitle = document.getElementById('formTitle');
     const formSubtitle = document.getElementById('formSubtitle');
 
-    function field(id, label, placeholder, icon){
-      return `
-      <div class="field">
+    function field(id,label,placeholder,icon){
+      return `<div class="field">
         <label class="label" for="${id}">${label}</label>
         <div class="input-wrap">
           <span class="icon" aria-hidden="true">${icon||'✦'}</span>
@@ -352,116 +274,110 @@
 
     function buildForm(method){
       dynamic.innerHTML = '';
-      let subtitle = '';
-      if (method==='bank'){
-        formTitle.textContent = 'Bank Withdrawal';
-        subtitle = 'Enter beneficiary bank details';
+      let subtitle='';
+      if(method==='bank'){
+        formTitle.textContent='Bank Withdrawal';
+        subtitle='Enter beneficiary bank details';
         dynamic.innerHTML += field('bankName','Bank Name','e.g., Nabil Bank','🏦');
         dynamic.innerHTML += field('bankNumber','Bank Account Number','e.g., 0123456789','#');
-      } else if (method==='esewa'){
-        formTitle.textContent = 'eSewa Withdrawal';
-        subtitle = 'Transfer to eSewa wallet';
+      } else if(method==='esewa'){
+        formTitle.textContent='eSewa Withdrawal';
+        subtitle='Transfer to eSewa wallet';
         dynamic.innerHTML += field('esewaName','eSewa Name','Registered name','👤');
         dynamic.innerHTML += field('esewaNumber','eSewa Number','98XXXXXXXX','📱');
-      } else if (method==='khalti'){
-        formTitle.textContent = 'Khalti Withdrawal';
-        subtitle = 'Transfer to Khalti wallet';
+      } else if(method==='khalti'){
+        formTitle.textContent='Khalti Withdrawal';
+        subtitle='Transfer to Khalti wallet';
         dynamic.innerHTML += field('khaltiName','Khalti Name','Registered name','👤');
         dynamic.innerHTML += field('khaltiNumber','Khalti Number','98XXXXXXXX','📱');
-      } else if (method==='card'){
-        formTitle.textContent = 'Card Withdrawal';
-        subtitle = 'Credit/Debit card payout';
+      } else if(method==='card'){
+        formTitle.textContent='Card Withdrawal';
+        subtitle='Credit/Debit card payout';
         dynamic.innerHTML += field('cardNumber','Card Number','#### #### #### ####','💳');
         dynamic.innerHTML += field('cardHolder','Card Holder Name','As printed on card','👤');
       }
-      formSubtitle.textContent = subtitle;
+      formSubtitle.textContent=subtitle;
 
-      // quick amount buttons
+      // quick buttons
       document.querySelectorAll('[data-quick]').forEach(b=>{
-        b.onclick = ()=>{ document.getElementById('amount').value = b.dataset.quick; };
+        b.onclick=()=>{
+          const val=parseFloat(b.dataset.quick);
+          if(val<2500 || val>50000){ alert('Amount must be between ₨2,500 and ₨50,000'); return; }
+          document.getElementById('amount').value=val;
+        }
       });
     }
 
-    // submit handler
-    const form = document.getElementById('withdrawForm');
-    form.addEventListener('submit', (e)=>{
+    const form=document.getElementById('withdrawForm');
+    form.addEventListener('submit',(e)=>{
       e.preventDefault();
-      const amt = parseFloat((document.getElementById('amount').value||'').replace(/,/g,''));
-      if (isNaN(amt) || amt < 10){
-        alert('Please enter a valid amount (min ₨10).');
+      const amt=parseFloat((document.getElementById('amount').value||'').replace(/,/g,''));
+      if(isNaN(amt) || amt<2500 || amt>50000){
+        alert('Invalid amount! You can only withdraw between ₨2,500 and ₨50,000.');
         return;
       }
-      const payload = { amount: amt, method: state.method };
-      // collect method-specific fields
-      const ids = Array.from(dynamic.querySelectorAll('input')).map(i=>i.id);
-      for (const id of ids){
-        const v = document.getElementById(id).value.trim();
+      const payload={amount:amt,method:state.method};
+      const ids=Array.from(dynamic.querySelectorAll('input')).map(i=>i.id);
+      for(const id of ids){
+        const v=document.getElementById(id).value.trim();
         if(!v){ alert('Please fill all fields.'); return; }
-        payload[id] = v;
+        payload[id]=v;
       }
-      state.payload = payload;
+      state.payload=payload;
       processTxn();
     });
 
-    function show(view, stepIndex){
-      for (const k in views){ views[k].hidden = true; }
-      views[view].hidden = false;
+    function show(view,stepIndex){
+      for(const k in views) views[k].hidden=true;
+      views[view].hidden=false;
       setStep(stepIndex);
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
     function processTxn(){
-      show('processing', 2);
-      // fake processing delay
-      setTimeout(()=>{ renderReceipt(); show('receipt', 3); }, 2400);
+      show('processing',2);
+      setTimeout(()=>{ renderReceipt(); show('receipt',3); },2400);
     }
 
     function txnId(){
-      const s = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let out = 'NX-';
-      for (let i=0;i<10;i++){ out += s[Math.floor(Math.random()*s.length)]; }
+      const s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out='NX-';
+      for(let i=0;i<10;i++) out+=s[Math.floor(Math.random()*s.length)];
       return out;
     }
 
     function renderReceipt(){
-      const rMethod = document.getElementById('rMethod');
-      const rBeneficiary = document.getElementById('rBeneficiary');
-      const rAmount = document.getElementById('rAmount');
-      const rDate = document.getElementById('rDate');
-      const rTxn = document.getElementById('rTxn');
+      const rMethod=document.getElementById('rMethod');
+      const rBeneficiary=document.getElementById('rBeneficiary');
+      const rAmount=document.getElementById('rAmount');
+      const rDate=document.getElementById('rDate');
+      const rTxn=document.getElementById('rTxn');
 
-      rTxn.textContent = txnId();
-      rAmount.textContent = `₨ ${state.payload.amount.toLocaleString()}`;
-      rDate.textContent = new Date().toLocaleString();
+      rTxn.textContent=txnId();
+      rAmount.textContent=`₨ ${state.payload.amount.toLocaleString()}`;
+      rDate.textContent=new Date().toLocaleString();
 
-      if (state.method==='bank'){
-        rMethod.textContent = 'Bank';
-        rBeneficiary.textContent = `${state.payload.bankName} • ${state.payload.bankNumber}`;
-      } else if (state.method==='esewa'){
-        rMethod.textContent = 'eSewa';
-        rBeneficiary.textContent = `${state.payload.esewaName} • ${state.payload.esewaNumber}`;
-      } else if (state.method==='khalti'){
-        rMethod.textContent = 'Khalti';
-        rBeneficiary.textContent = `${state.payload.khaltiName} • ${state.payload.khaltiNumber}`;
-      } else if (state.method==='card'){
-        rMethod.textContent = 'Card';
-        rBeneficiary.textContent = `${state.payload.cardHolder} • ${state.payload.cardNumber}`;
+      if(state.method==='bank'){
+        rMethod.textContent='Bank';
+        rBeneficiary.textContent=`${state.payload.bankName} • ${state.payload.bankNumber}`;
+      } else if(state.method==='esewa'){
+        rMethod.textContent='eSewa';
+        rBeneficiary.textContent=`${state.payload.esewaName} • ${state.payload.esewaNumber}`;
+      } else if(state.method==='khalti'){
+        rMethod.textContent='Khalti';
+        rBeneficiary.textContent=`${state.payload.khaltiName} • ${state.payload.khaltiNumber}`;
+      } else if(state.method==='card'){
+        rMethod.textContent='Card';
+        rBeneficiary.textContent=`${state.payload.cardHolder} • ${state.payload.cardNumber}`;
       }
     }
 
-    // new / print
-    document.getElementById('btnNew').addEventListener('click', ()=>{
-      state.method=null; state.payload={};
-      form.reset();
-      dynamic.innerHTML='';
-      show('methods', 0);
+    document.getElementById('btnNew').addEventListener('click',()=>{
+      state.method=null; state.payload={}; form.reset(); dynamic.innerHTML='';
+      show('methods',0);
     });
-    document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
+    document.getElementById('btnPrint').addEventListener('click',()=> window.print());
 
-    // init
-    show('methods', 0);
+    show('methods',0);
   </script>
 </body>
-
 </html>
-
