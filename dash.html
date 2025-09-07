@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html> 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -7,7 +7,7 @@
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -21,42 +21,23 @@
       --glass: rgba(255,255,255,0.04);
       --muted: rgba(255,255,255,0.65);
       --success: #16a34a;
-      --danger: #ef4444;
       font-family: 'Poppins', sans-serif;
     }
-    .withdraw-btn {
-  background: linear-gradient(135deg, #ff7b00, #ff4500); /* Gradient orange */
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-}
 
-.withdraw-btn:hover {
-  background: linear-gradient(135deg, #ff4500, #ff7b00); /* Reverse gradient on hover */
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-}
-
-.withdraw-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
+    html,body{
+      height:100%;
+      margin:0;
+      background:linear-gradient(180deg,#071227 0%, #0b1220 100%);
+      color:#e6eef8;
+    }
 
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071227 0%, #0b1220 100%);color:#e6eef8}
 
-    /* Layout */
     .app{display:flex;min-height:100vh;}
+    .sidebar{width:260px;padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(6px);}
+    .main{flex:1;padding:22px;}
 
     /* Sidebar */
-    .sidebar{width:260px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(6px);padding:24px;}
     .brand{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
     .logo{width:64px;height:64px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 6px 20px rgba(12,8,24,0.6)}
     .brand h1{font-size:18px;margin:10px 0 0}
@@ -64,7 +45,6 @@
 
     nav.menu{margin-top:14px}
     nav.menu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:inherit;text-decoration:none;margin-bottom:6px;transition:all .18s}
-    nav.menu a i{width:22px;text-align:center}
     nav.menu a:hover, nav.menu a.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));transform:translateX(6px)}
 
     .profile-card{margin-top:18px;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;gap:12px;align-items:center}
@@ -73,65 +53,103 @@
     .meta .name{font-weight:600}
     .meta .level{font-size:12px;color:var(--muted)}
 
-    /* Main */
-    .main{flex:1;padding:22px;}
-    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-    .search{display:flex;gap:10px;align-items:center;background:var(--glass);padding:10px 12px;border-radius:10px;min-width:320px}
-    .search input{background:transparent;border:0;outline:none;color:inherit;font-size:14px}
-    .top-actions{display:flex;gap:12px;align-items:center}
-    .icon-btn{padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
-
-    /* Cards */
+    /* Layout cards */
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);transition:.2s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
     .col-span-3{grid-column:span 3}
-    .col-span-6{grid-column:span 6}
     .col-span-4{grid-column:span 4}
+    .col-span-6{grid-column:span 6}
     .col-span-8{grid-column:span 8}
+    .col-span-12{grid-column:span 12}
 
     .card .title{font-size:13px;color:var(--muted);margin-bottom:8px}
     .big-value{font-size:20px;font-weight:700}
     .muted{color:var(--muted);font-size:13px}
 
-    .actions{display:flex;gap:8px;margin-top:12px}
     .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
     .btn.primary{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-    /* Chart container */
-    .chart-wrap{height:220px}
+    /* Withdraw Button */
+    .withdraw-btn {
+      background: linear-gradient(135deg, #ff7b00, #ff4500);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .withdraw-btn:hover {
+      background: linear-gradient(135deg, #ff4500, #ff7b00);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
 
-    /* Tasks & Transactions */
-    .task{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));}
-    .task .left{display:flex;gap:12px;align-items:center}
-    .task .left .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center}
-
-    table{width:100%;border-collapse:collapse;font-size:13px}
-    table thead th{text-align:left;padding:10px;color:var(--muted);font-weight:600}
-    table tbody td{padding:12px;border-top:1px solid rgba(255,255,255,0.02)}
+    /* Investment Table */
+    .invest-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:12px;
+      font-size:14px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    .invest-table thead{
+      background:linear-gradient(90deg,#7c3aed,#06b6d4);
+    }
+    .invest-table thead th{
+      padding:14px;
+      text-align:center;
+      color:#fff;
+      font-weight:600;
+      font-size:15px;
+    }
+    .invest-table tbody tr{
+      background:rgba(255,255,255,0.02);
+      transition:.2s;
+    }
+    .invest-table tbody tr:hover{
+      background:rgba(124,58,237,0.08);
+      transform:scale(1.01);
+    }
+    .invest-table td{
+      padding:12px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .invest{color:#38bdf8;font-weight:600}
+    .profit{color:#22c55e;font-weight:700}
+    .note{
+      margin-top:12px;
+      padding:10px 14px;
+      border-radius:10px;
+      background:linear-gradient(90deg,#f97316,#f43f5e);
+      font-size:13px;
+      text-align:center;
+      color:#fff;
+      font-weight:600;
+    }
 
     /* Responsive */
     @media (max-width:1000px){
       .sidebar{display:none}
       .grid{grid-template-columns:repeat(6,1fr)}
-      .col-span-3{grid-column:span 3}
-      .col-span-6{grid-column:span 6}
     }
-    @media (max-width:600px){
+    @media(max-width:600px){
       .main{padding:12px}
-      .topbar{flex-direction:column;align-items:flex-start;gap:12px}
       .grid{grid-template-columns:repeat(1,1fr)}
-      .col-span-3,.col-span-4,.col-span-6,.col-span-8{grid-column:span 1}
+      .invest-table td,.invest-table th{font-size:12px;padding:8px}
     }
-
-    /* subtle animations */
-    .card{transition:transform .18s,box-shadow .18s}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
-
   </style>
 </head>
 <body>
   <div class="app">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="brand">
         <div class="logo">NX</div>
@@ -158,40 +176,16 @@
       </div>
     </aside>
 
+    <!-- Main -->
     <main class="main">
-      <div class="topbar">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="search">
-            <i class="fas fa-magnifying-glass"></i>
-            <input placeholder="Search tasks, transactions, users..." />
-          </div>
-          <div style="display:flex;flex-direction:column">
-            <div style="font-weight:700">Welcome back, Suman 👋</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.6)">Last login: Aug 30, 2025</div>
-          </div>
-        </div>
-
-        <div class="top-actions">
-          <button class="icon-btn"><i class="fas fa-bell"></i></button>
-          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
-          <div style="display:flex;gap:8px;align-items:center">
-            <button class="btn ghost">Withdraw</button>
-            <button class="btn primary">Start Task</button>
-          </div>
-        </div>
-      </div>
-
       <section class="grid">
-        <!-- Cards -->
+        <!-- Balance Card -->
         <div class="card col-span-3">
           <div class="title">Total Balance</div>
           <div class="big-value">NPR 12,450.00</div>
           <div class="muted">Available balance • Updated just now</div>
           <div class="actions">
-            <!-- Withdraw Button -->
-<button class="withdraw-btn" onclick="window.location.href='withdraw.html'">
-  💸 Withdraw
-</button>
+            <button class="withdraw-btn" onclick="window.location.href='withdraw.html'">💸 Withdraw</button>
             <button class="btn ghost">Deposit</button>
           </div>
         </div>
@@ -217,7 +211,7 @@
         <!-- Earnings chart -->
         <div class="card col-span-8">
           <div class="title">Earnings Trend</div>
-          <div class="chart-wrap"><canvas id="earningsChart"></canvas></div>
+          <canvas id="earningsChart" style="height:220px"></canvas>
         </div>
 
         <!-- Tasks list -->
@@ -225,38 +219,15 @@
           <div class="title">Tasks & Activity</div>
           <div style="margin-top:10px">
             <div class="task">
-              <div class="left">
-                <div class="icon" style="background:linear-gradient(90deg,#ffd166,#f97316)"><i class="fas fa-play"></i></div>
+              <div style="display:flex;gap:10px;align-items:center">
+                <i class="fas fa-play"></i>
                 <div>
                   <div style="font-weight:600">Watch short videos</div>
                   <div class="muted">Reward: NPR 15 • 12 mins</div>
                 </div>
               </div>
-              <div><button class="btn primary">Start</button></div>
+              <button class="btn primary">Start</button>
             </div>
-
-            <div class="task">
-              <div class="left">
-                <div class="icon" style="background:linear-gradient(90deg,#60a5fa,#3b82f6)"><i class="fas fa-file-contract"></i></div>
-                <div>
-                  <div style="font-weight:600">Complete survey</div>
-                  <div class="muted">Reward: NPR 120 • 8 mins</div>
-                </div>
-              </div>
-              <div><button class="btn primary">Start</button></div>
-            </div>
-
-            <div class="task">
-              <div class="left">
-                <div class="icon" style="background:linear-gradient(90deg,#34d399,#059669)"><i class="fas fa-user-plus"></i></div>
-                <div>
-                  <div style="font-weight:600">Invite friend (Referral)</div>
-                  <div class="muted">Reward: NPR 100 • Instant</div>
-                </div>
-              </div>
-              <div><button class="btn ghost">Share</button></div>
-            </div>
-
           </div>
         </div>
 
@@ -264,7 +235,7 @@
         <div class="card col-span-8">
           <div class="title">Transaction History</div>
           <div style="margin-top:12px;overflow:auto;max-height:240px">
-            <table>
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
               <thead>
                 <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
               </thead>
@@ -272,28 +243,48 @@
                 <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td>+NPR 120.00</td></tr>
                 <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td>-NPR 1,200.00</td></tr>
                 <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td>+NPR 100.00</td></tr>
-                <tr><td>2025-08-28</td><td>Credit</td><td>Video earnings</td><td>+NPR 15.00</td></tr>
-                <tr><td>2025-08-27</td><td>Pending</td><td>Withdrawal</td><td>-NPR 1,100.00</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
-      </section>
+        <!-- Investment Offers -->
+        <div class="card col-span-12">
+          <h2 style="text-align:center;font-size:18px;font-weight:700">🕯 TODAY BEST SPECIAL OFFER 🕯</h2>
+          <table class="invest-table">
+            <thead>
+              <tr>
+                <th>Investment</th>
+                <th>Profit Return</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="invest">₹3,000</td><td class="profit">₹8,000</td></tr>
+              <tr><td class="invest">₹5,000</td><td class="profit">₹10,000</td></tr>
+              <tr><td class="invest">₹10,000</td><td class="profit">₹2,20,000</td></tr>
+              <tr><td class="invest">₹20,000</td><td class="profit">₹90,000</td></tr>
+              <tr><td class="invest">₹30,000</td><td class="profit">₹1,20,000</td></tr>
+              <tr><td class="invest">₹50,000</td><td class="profit">₹1,50,000</td></tr>
+            </tbody>
+          </table>
+          <div class="note">
+            💵 MONEY WILL BE CREDITED IN YOUR ACCOUNT UNDER 30-45 MINUTES ✅
+          </div>
+        </div>
 
+      </section>
     </main>
   </div>
 
   <script>
-    // sample earnings chart
     const ctx = document.getElementById('earningsChart').getContext('2d');
-    const earningsChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Aug 25','Aug 26','Aug 27','Aug 28','Aug 29','Aug 30','Aug 31'],
         datasets: [{
           label: 'Earnings (NPR)',
-          data: [150, 200, 80, 120, 95, 420, 480],
+          data: [150,200,80,120,95,420,480],
           tension: 0.3,
           borderWidth: 2,
           fill: true,
@@ -305,11 +296,13 @@
       options: {
         plugins:{legend:{display:false}},
         scales: {
-          x: {grid:{display:false},ticks:{color:'rgba(255,255,255,0.7)'}},
-          y: {grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.7)'}}
+          x:{grid:{display:false},ticks:{color:'rgba(255,255,255,0.7)'}},
+          y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.7)'}}
         }
       }
     });
   </script>
 </body>
 </html>
+
+
