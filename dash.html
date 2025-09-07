@@ -1,226 +1,268 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nep X Trade • Pro Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earning Dashboard • Nep X Trade</title>
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Chart.js -->
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    :root {
-      --bg-dark: #0b1220;
-      --card: rgba(255,255,255,0.04);
-      --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
-      --income: linear-gradient(90deg,#22c55e,#14b8a6);
-      --expense: linear-gradient(90deg,#ef4444,#f97316);
-      --muted: rgba(255,255,255,0.65);
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      margin: 0;
-      background: linear-gradient(180deg,#071227 0%, var(--bg-dark) 100%);
-      color: #e6eef8;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
     }
-    * { box-sizing: border-box; }
 
-    /* Layout */
-    .app { display: flex; flex-direction: column; min-height: 100vh; }
-
-    /* Header */
-    .header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);
-      background: rgba(11,18,32,0.95); backdrop-filter: blur(5px);
+    /* Glassmorphism card style */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
     }
-    .header h1 { font-size: 20px; margin:0; }
-    .profile-top { display:flex; align-items:center; gap:10px; }
-    .profile-top img { width:40px; height:40px; border-radius:50%; border:2px solid var(--accent); }
-    .profile-top .name-level { display:flex; flex-direction:column; font-size:12px; }
-    .profile-top .name-level .name { font-weight:600; font-size:14px; }
-    .profile-top .name-level .level { color: var(--muted); }
 
-    /* Grid */
-    .grid { display: grid; grid-template-columns: repeat(12,1fr); gap:12px; padding:16px; }
-
-    /* Cards */
-    .card { background: var(--card); padding:14px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.4); display:flex; flex-direction:column; justify-content:space-between; }
-    .col-span-3 { grid-column: span 3; }
-    .col-span-12 { grid-column: span 12; }
-    .title { font-size:13px; color: var(--muted); margin-bottom:6px; }
-    .big-value { font-size:18px; font-weight:700; margin-bottom:10px; }
-
-    /* Buttons */
-    .btn { padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:600; transition:.2s; }
-    .btn.primary { background: var(--accent); color:#fff; }
-    .btn.ghost { background:transparent; border:1px solid rgba(255,255,255,0.25); color:#e6eef8; }
-    .btn-group { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
-    .withdraw-btn { background: linear-gradient(135deg,#ff7b00,#ff4500); color:#fff; font-weight:bold; cursor:pointer; flex:1; }
-
-    /* Income/Expense Cards */
-    .income-card { background: var(--income); color:#fff; }
-    .expense-card { background: var(--expense); color:#fff; }
-
-    /* Tables */
-    table { width:100%; border-collapse:collapse; font-size:13px; }
-    th, td { padding:8px; text-align:center; }
-    th { background: rgba(255,255,255,0.08); }
-    tbody tr:nth-child(even) { background: rgba(255,255,255,0.03); }
-
-    /* Investment Table */
-    .invest-table { margin-top:12px; border-radius:10px; overflow:hidden; }
-    .invest-table thead { background: var(--accent); }
-    .invest { color:#38bdf8; font-weight:600; }
-    .profit { color:#fff; font-weight:700; }
-    .note { margin-top:12px; padding:10px; border-radius:8px; background: linear-gradient(90deg,#f97316,#f43f5e); font-size:13px; text-align:center; font-weight:600; }
-
-    /* Mobile */
-    @media(max-width:900px){
-      .grid { grid-template-columns: repeat(2,1fr); }
-      .btn-group { flex-direction:column; }
-      .btn, .withdraw-btn { width:100%; }
+    .glass-card:hover {
+      transform: translateY(-5px);
     }
-    @media(max-width:600px){
-      .grid { grid-template-columns: 1fr; padding:12px; }
-      .card { padding:12px; }
-      th, td { font-size:12px; padding:6px; }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    th {
+      background: rgba(255,255,255,0.1);
+    }
+
+    tr:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .btn {
+      background: #ff9900;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: #e68a00;
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .flex-md {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col">
 
-  <!-- Top Header -->
-  <div class="header">
-    <h1>Dashboard</h1>
-    <div class="profile-top">
-      <img src="https://i.pravatar.cc/100" alt="User">
-      <div class="name-level">
-        <div class="name">new user</div>
-        <div class="level">VIP Member • Level 1</div>
-      </div>
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 glass-card">
+    <div class="flex items-center gap-4">
+      <img src="https://via.placeholder.com/40" alt="Logo" class="rounded-full">
+      <h1 class="text-2xl font-bold">Nep X Trade</h1>
     </div>
-  </div>
-
-  <!-- Grid Section -->
-  <section class="grid">
-
-    <!-- Balance -->
-    <div class="card income-card col-span-3">
-      <div class="title">Total Balance</div>
-      <div class="big-value">NPR 1500.00</div>
-      <div class="btn-group">
-        <button class="withdraw-btn" onclick="window.location.href='withdraw.html'">💸 Withdraw</button>
-        <button class="btn ghost">Deposit</button>
-      </div>
-    </div>
-
-    <div class="card income-card col-span-3">
-      <div class="title">Today's Earnings</div>
-      <div class="big-value">NPR 1500.00</div>
-    </div>
-
-    <div class="card expense-card col-span-3">
-      <div class="title">Pending Withdrawals</div>
-      <div class="big-value">NPR 1500.00</div>
-    </div>
-
-    <div class="card income-card col-span-3">
-      <div class="title">Referral Income</div>
-      <div class="big-value">NPR 0.00</div>
-    </div>
-
-    <!-- Earnings Chart -->
-    <div class="card col-span-12">
-      <div class="title">Earnings Trend</div>
-      <canvas id="earningsChart" style="height:220px"></canvas>
-    </div>
-
-    <!-- Tasks -->
-    <div class="card col-span-12">
-      <div class="title">Tasks & Activity</div>
-      <div class="task" style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
-        <div style="display:flex;gap:10px;align-items:center">
-          <i class="fas fa-play"></i>
-          <div>
-            <div style="font-weight:600">Watch short videos</div>
-            <div style="color:var(--muted);font-size:12px">Reward: NPR 15 • 12 mins</div>
-          </div>
+    <nav class="flex items-center gap-6">
+      <a href="#" class="hover:text-yellow-400">Dashboard</a>
+      <a href="withdraw.html" class="hover:text-yellow-400">Withdraw</a>
+      <a href="#" class="hover:text-yellow-400">Investments</a>
+      <a href="#" class="hover:text-yellow-400">Profile</a>
+      <a href="#" class="hover:text-yellow-400">Support</a>
+      <div class="relative group">
+        <img src="https://via.placeholder.com/40" class="rounded-full cursor-pointer">
+        <div class="absolute right-0 mt-2 w-40 bg-gray-800 text-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Settings</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Logout</a>
         </div>
-        <button class="btn primary">Start</button>
       </div>
-    </div>
+    </nav>
+  </header>
 
-    <!-- Transactions -->
-    <div class="card col-span-12">
-      <div class="title">Transaction History</div>
-      <div style="overflow:auto;max-height:220px;">
+  <div class="flex flex-1 gap-4 p-4 flex-md">
+    <!-- Sidebar -->
+    <aside class="w-64 glass-card flex-shrink-0">
+      <ul class="space-y-4">
+        <li><a href="#" class="flex items-center gap-2 hover:text-yellow-400"><span>📊</span> Dashboard Overview</a></li>
+        <li><a href="withdraw.html" class="flex items-center gap-2 hover:text-yellow-400"><span>💵</span> Withdraw</a></li>
+        <li><a href="#" class="flex items-center gap-2 hover:text-yellow-400"><span>💰</span> Deposit</a></li>
+        <li><a href="#" class="flex items-center gap-2 hover:text-yellow-400"><span>📄</span> Transaction History</a></li>
+        <li><a href="#" class="flex items-center gap-2 hover:text-yellow-400"><span>👥</span> Referrals</a></li>
+        <li><a href="#" class="flex items-center gap-2 hover:text-yellow-400"><span>⚙️</span> Settings</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 space-y-6">
+      <!-- Earnings Overview -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card">
+          <h2 class="font-semibold text-lg">Total Balance</h2>
+          <p class="text-2xl font-bold">₹1500</p>
+        </div>
+        <div class="glass-card">
+          <h2 class="font-semibold text-lg">Available Balance</h2>
+          <p class="text-2xl font-bold">₹15000</p>
+        </div>
+        <div class="glass-card">
+          <h2 class="font-semibold text-lg">Pending Earnings</h2>
+          <p class="text-2xl font-bold">₹1500</p>
+        </div>
+        <div class="glass-card">
+          <h2 class="font-semibold text-lg">Daily Profit</h2>
+          <p class="text-2xl font-bold">₹1500</p>
+        </div>
+      </section>
+
+      <!-- Investment Offers Table -->
+      <section class="glass-card">
+        <h2 class="text-xl font-bold mb-4">🕯 Today’s Best Special Offers 🕯</h2>
         <table>
           <thead>
-            <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
+            <tr>
+              <th>Investment</th>
+              <th>Profit</th>
+              <th>Duration</th>
+              <th>Action</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td style="color:#fff">+NPR 0</td></tr>
-            <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td style="color:#fff">-NPR 0</td></tr>
-            <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td style="color:#fff">+NPR 0</td></tr>
+            <tr>
+              <td>₹3,000</td>
+              <td>₹8,000</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
+            <tr>
+              <td>₹5,000</td>
+              <td>₹10,000</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
+            <tr>
+              <td>₹10,000</td>
+              <td>₹22,000</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
+            <tr>
+              <td>₹20,000</td>
+              <td>₹90,000</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
+            <tr>
+              <td>₹30,000</td>
+              <td>₹120,000</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
+            <tr>
+              <td>₹50,000</td>
+              <td>₹1.5 Lakh</td>
+              <td>30 Days</td>
+              <td><button class="btn">Invest Now</button></td>
+            </tr>
           </tbody>
         </table>
-      </div>
-    </div>
+        <p class="mt-2 text-sm text-yellow-400">💵 Money will be credited in your account within 30-45 minutes ✅</p>
+      </section>
 
-    <!-- Investment Offers -->
-    <div class="card col-span-12">
-      <h2 style="text-align:center;font-size:16px">🕯 TODAY BEST SPECIAL OFFER 🕯</h2>
-      <table class="invest-table">
-        <thead>
-          <tr><th>Investment</th><th>Profit Return</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="invest">₹1500</td><td class="profit">₹3,000</td></tr>
-          <tr><td class="invest">₹2500</td><td class="profit">₹6,000</td></tr>
-          <tr><td class="invest">₹10,000</td><td class="profit">₹20,000</td></tr>
-          <tr><td class="invest">₹20,000</td><td class="profit">₹32,000</td></tr>
-          <tr><td class="invest">₹30,000</td><td class="profit">₹59,000</td></tr>
-          <tr><td class="invest">₹50,000</td><td class="profit">₹1,50,000</td></tr>
-        </tbody>
-      </table>
-      <div class="note">💵 MONEY WILL BE CREDITED IN YOUR ACCOUNT WITHIN 30–45 MINUTES ✅</div>
-    </div>
+      <!-- Charts Section -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="glass-card">
+          <h2 class="font-bold mb-2">Earning Trends</h2>
+          <canvas id="earningChart" height="200"></canvas>
+        </div>
+        <div class="glass-card">
+          <h2 class="font-bold mb-2">Investment Allocation</h2>
+          <canvas id="investmentChart" height="200"></canvas>
+        </div>
+      </section>
 
-  </section>
+    </main>
+  </div>
 
+  <!-- Footer -->
+  <footer class="text-center p-4 glass-card mt-auto">
+    <p>&copy; 2025 Nep X Trade. All rights reserved.</p>
+    <p><a href="#" class="hover:text-yellow-400">Terms</a> | <a href="#" class="hover:text-yellow-400">Privacy Policy</a> | <a href="#" class="hover:text-yellow-400">Contact Support</a></p>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-    const ctx = document.getElementById('earningsChart').getContext('2d');
-    new Chart(ctx, {
+    // Earning Chart
+    const ctx = document.getElementById('earningChart').getContext('2d');
+    const earningChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Aug 25','Aug 26','Aug 27','Aug 28','Aug 29','Aug 30','Aug 31'],
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         datasets: [{
-          label: 'Earnings (NPR)',
-          data: [150,200,80,120,95,420,480],
-          tension: 0.4,
-          borderWidth: 2,
+          label: 'Daily Earnings',
+          data: [5000, 7000, 6000, 8000, 7500, 9000, 8500],
+          borderColor: '#ff9900',
+          backgroundColor: 'rgba(255,153,0,0.2)',
           fill: true,
-          backgroundColor: 'rgba(34,197,94,0.15)',
-          borderColor: '#22c55e',
-          pointRadius: 4,
-          pointBackgroundColor: '#14b8a6'
+          tension: 0.3,
         }]
       },
       options: {
-        plugins:{legend:{display:false}},
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+        },
         scales: {
-          x:{grid:{display:false},ticks:{color:'rgba(255,255,255,0.7)'}},
-          y:{grid:{color:'rgba(255,255,255,0.1)'},ticks:{color:'rgba(255,255,255,0.7)'}}
+          y: { beginAtZero: true }
         }
       }
     });
+
+    // Investment Chart
+    const ctx2 = document.getElementById('investmentChart').getContext('2d');
+    const investmentChart = new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: ['₹3k','₹5k','₹10k','₹20k','₹30k','₹50k'],
+        datasets: [{
+          label: 'Investments',
+          data: [8000, 10000, 22000, 90000, 120000, 150000],
+          backgroundColor: [
+            '#ff9900','#ffcc00','#00ccff','#33ff33','#ff33cc','#ff5733'
+          ],
+        }]
+      },
+      options: {
+        responsive: true,
+      }
+    });
   </script>
+
 </body>
 </html>
-
