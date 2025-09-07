@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nep X Trade • Pro Earning Dashboard</title>
+  <title>Nep X Trade • Pro Dashboard</title>
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,9 +18,9 @@
       --bg-light: #1a2235;
       --card: rgba(255,255,255,0.04);
       --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
+      --income: linear-gradient(90deg,#22c55e,#14b8a6);
+      --expense: linear-gradient(90deg,#ef4444,#f97316);
       --muted: rgba(255,255,255,0.65);
-      --success: #22c55e;
-      --danger: #ef4444;
       font-family: 'Poppins', sans-serif;
     }
 
@@ -40,7 +40,26 @@
       backdrop-filter: blur(8px);
       border-right: 1px solid rgba(255,255,255,0.05);
     }
-    .main { flex: 1; padding: 20px; }
+    .main { flex: 1; padding: 20px; display: flex; flex-direction: column; }
+
+    /* Header */
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .header h1 { font-size: 22px; font-weight: 700; margin: 0; }
+    .profile-top {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .profile-top img {
+      width: 45px; height: 45px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--accent);
+    }
+    .profile-top .name-level {
+      display: flex; flex-direction: column;
+    }
+    .profile-top .name-level .name { font-weight: 600; font-size: 14px; }
+    .profile-top .name-level .level { font-size: 12px; color: var(--muted); }
 
     /* Sidebar */
     .brand { text-align: center; margin-bottom: 25px; }
@@ -89,6 +108,8 @@
       padding: 16px;
       border-radius: 14px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
     }
     .col-span-3 { grid-column: span 3; }
     .col-span-4 { grid-column: span 4; }
@@ -107,8 +128,12 @@
     .btn.primary { background: var(--accent); color: #fff; }
     .btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #e6eef8; }
     .btn:hover { opacity: .9; }
-    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-    .withdraw-btn { background: linear-gradient(135deg,#ff7b00,#ff4500); color: #fff; font-weight: bold; cursor: pointer; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .withdraw-btn { background: linear-gradient(135deg,#ff7b00,#ff4500); color: #fff; font-weight: bold; cursor: pointer; flex:1; }
+
+    /* Income/Expense Cards */
+    .income-card { background: var(--income); color:#fff; }
+    .expense-card { background: var(--expense); color:#fff; }
 
     /* Table */
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -120,7 +145,7 @@
     .invest-table { margin-top: 12px; border-radius: 10px; overflow: hidden; }
     .invest-table thead { background: var(--accent); }
     .invest { color:#38bdf8; font-weight: 600; }
-    .profit { color: var(--success); font-weight: 700; }
+    .profit { color: #fff; font-weight: 700; }
     .note { margin-top: 12px; padding: 10px; border-radius: 8px; background: linear-gradient(90deg,#f97316,#f43f5e); font-size: 13px; text-align: center; font-weight: 600; }
 
     /* Mobile */
@@ -167,9 +192,21 @@
 
     <!-- Main -->
     <main class="main">
+      <!-- Top Header -->
+      <div class="header">
+        <h1>Dashboard</h1>
+        <div class="profile-top">
+          <img src="https://i.pravatar.cc/100" alt="User">
+          <div class="name-level">
+            <div class="name">Suman KC</div>
+            <div class="level">VIP Member • Level 5</div>
+          </div>
+        </div>
+      </div>
+
       <section class="grid">
-        <!-- Balance -->
-        <div class="card col-span-3">
+        <!-- Balance Card -->
+        <div class="card income-card col-span-3">
           <div class="title">Total Balance</div>
           <div class="big-value">NPR 12,450.00</div>
           <div class="btn-group">
@@ -178,17 +215,17 @@
           </div>
         </div>
 
-        <div class="card col-span-3">
+        <div class="card income-card col-span-3">
           <div class="title">Today's Earnings</div>
           <div class="big-value">NPR 420.00</div>
         </div>
 
-        <div class="card col-span-3">
+        <div class="card expense-card col-span-3">
           <div class="title">Pending Withdrawals</div>
           <div class="big-value">NPR 2,300.00</div>
         </div>
 
-        <div class="card col-span-3">
+        <div class="card income-card col-span-3">
           <div class="title">Referral Income</div>
           <div class="big-value">NPR 6,800.00</div>
         </div>
@@ -223,9 +260,9 @@
                 <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
               </thead>
               <tbody>
-                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td style="color:var(--success)">+NPR 120</td></tr>
-                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td style="color:var(--danger)">-NPR 1,200</td></tr>
-                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td style="color:var(--success)">+NPR 100</td></tr>
+                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td style="color:#fff">+NPR 120</td></tr>
+                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td style="color:#fff">-NPR 1,200</td></tr>
+                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td style="color:#fff">+NPR 100</td></tr>
               </tbody>
             </table>
           </div>
@@ -265,10 +302,10 @@
           tension: 0.4,
           borderWidth: 2,
           fill: true,
-          backgroundColor: 'rgba(124,58,237,0.15)',
-          borderColor: '#7c3aed',
+          backgroundColor: 'rgba(34,197,94,0.15)',
+          borderColor: '#22c55e',
           pointRadius: 4,
-          pointBackgroundColor: '#06b6d4'
+          pointBackgroundColor: '#14b8a6'
         }]
       },
       options: {
