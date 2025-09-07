@@ -3,28 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pro Earning Dashboard • Nep X Trade</title>
+  <title>Nep X Trade • Pro Earning Dashboard</title>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     :root {
-      --bg-1: #0f1724;
-      --bg-2: #071227;
-      --card: rgba(255,255,255,0.03);
+      --bg-dark: #0b1220;
+      --bg-light: #1a2235;
+      --card: rgba(255,255,255,0.04);
       --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
       --muted: rgba(255,255,255,0.65);
+      --success: #22c55e;
+      --danger: #ef4444;
       font-family: 'Poppins', sans-serif;
     }
 
     body {
       margin: 0;
-      background: linear-gradient(180deg,#071227 0%, #0b1220 100%);
+      background: linear-gradient(180deg,#071227 0%, var(--bg-dark) 100%);
       color: #e6eef8;
     }
     * { box-sizing: border-box; }
@@ -32,40 +34,49 @@
     /* Layout */
     .app { display: flex; min-height: 100vh; }
     .sidebar {
-      width: 260px;
+      width: 250px;
       padding: 20px;
       background: rgba(255,255,255,0.02);
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
+      border-right: 1px solid rgba(255,255,255,0.05);
     }
-    .main { flex: 1; padding: 18px; }
+    .main { flex: 1; padding: 20px; }
 
     /* Sidebar */
-    .brand { text-align: center; margin-bottom: 18px; }
+    .brand { text-align: center; margin-bottom: 20px; }
     .logo {
       width: 60px; height: 60px;
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--accent);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: #fff;
+      font-weight: 700; font-size: 18px; color: #fff;
+      margin: 0 auto;
     }
-    nav.menu { margin-top: 14px; }
+    .brand h1 {
+      font-size: 16px; margin: 10px 0 4px;
+    }
+    .brand p {
+      font-size: 12px; color: var(--muted); margin: 0;
+    }
+
     nav.menu a {
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 10px;
       color: inherit; text-decoration: none;
-      margin-bottom: 6px;
-      transition: .2s;
+      margin-bottom: 8px;
+      font-size: 14px;
+      transition: .25s;
     }
     nav.menu a:hover, nav.menu a.active {
-      background: rgba(255,255,255,0.05);
-      transform: translateX(4px);
+      background: rgba(255,255,255,0.08);
+      transform: translateX(5px);
     }
 
     .profile-card {
-      margin-top: 20px; padding: 12px;
+      margin-top: 25px; padding: 12px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.03);
+      background: var(--card);
       display: flex; gap: 12px; align-items: center;
     }
     .profile-card img {
@@ -76,60 +87,66 @@
     .meta .level { font-size: 12px; color: var(--muted); }
 
     /* Cards & Grid */
-    .grid { display: grid; grid-template-columns: repeat(12,1fr); gap: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(12,1fr); gap: 16px; }
     .card {
       background: var(--card);
-      padding: 14px;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
     .col-span-3 { grid-column: span 3; }
     .col-span-4 { grid-column: span 4; }
     .col-span-6 { grid-column: span 6; }
-    .col-span-8 { grid-column: span 8; }
     .col-span-12 { grid-column: span 12; }
+
     .title { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
     .big-value { font-size: 18px; font-weight: 700; }
 
     /* Buttons */
-    .btn { padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; }
+    .btn {
+      padding: 10px 14px; border-radius: 10px;
+      border: none; cursor: pointer; font-weight: 600;
+      transition: .2s;
+    }
     .btn.primary { background: var(--accent); color: #fff; }
-    .btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--muted); }
+    .btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #e6eef8; }
+    .btn:hover { opacity: .9; }
     .withdraw-btn {
       background: linear-gradient(135deg,#ff7b00,#ff4500);
       color: #fff; font-weight: bold;
       padding: 10px 18px;
       border-radius: 10px;
       cursor: pointer; border: none;
+      margin-right: 8px;
     }
 
     /* Table */
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th, td { padding: 10px; text-align: center; }
-    th { background: rgba(255,255,255,0.05); }
-    tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    th { background: rgba(255,255,255,0.08); }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.03); }
 
     /* Investment Table */
-    .invest-table { margin-top: 10px; border-radius: 10px; overflow: hidden; }
-    .invest-table thead { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+    .invest-table { margin-top: 12px; border-radius: 10px; overflow: hidden; }
+    .invest-table thead { background: var(--accent); }
     .invest { color:#38bdf8; font-weight: 600; }
-    .profit { color:#22c55e; font-weight: 700; }
+    .profit { color: var(--success); font-weight: 700; }
     .note {
-      margin-top: 10px;
+      margin-top: 12px;
       padding: 10px; border-radius: 8px;
       background: linear-gradient(90deg,#f97316,#f43f5e);
       font-size: 13px; text-align: center; font-weight: 600;
     }
 
     /* Mobile */
-    @media(max-width: 900px) {
+    @media(max-width: 1000px) {
       .sidebar { display: none; }
       .grid { grid-template-columns: repeat(2,1fr); }
     }
     @media(max-width: 600px) {
-      .main { padding: 10px; }
+      .main { padding: 12px; }
       .grid { grid-template-columns: 1fr; }
-      .card { padding: 12px; }
+      .card { padding: 14px; }
       th, td { font-size: 12px; padding: 8px; }
       .btn, .withdraw-btn { width: 100%; margin-top: 6px; }
     }
@@ -141,8 +158,8 @@
     <aside class="sidebar">
       <div class="brand">
         <div class="logo">NX</div>
-        <h1 style="font-size:16px;margin:6px 0 0;">Nep X Trade</h1>
-        <p style="font-size:12px;color:var(--muted)">Earn • Grow • Withdraw</p>
+        <h1>Nep X Trade</h1>
+        <p>Earn • Grow • Withdraw</p>
       </div>
       <nav class="menu">
         <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
@@ -197,7 +214,7 @@
         <!-- Tasks -->
         <div class="card col-span-12">
           <div class="title">Tasks & Activity</div>
-          <div class="task" style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+          <div class="task" style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
             <div style="display:flex;gap:10px;align-items:center">
               <i class="fas fa-play"></i>
               <div>
@@ -212,15 +229,15 @@
         <!-- Transactions -->
         <div class="card col-span-12">
           <div class="title">Transaction History</div>
-          <div style="overflow:auto;max-height:200px;">
+          <div style="overflow:auto;max-height:220px;">
             <table>
               <thead>
                 <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
               </thead>
               <tbody>
-                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td>+NPR 120</td></tr>
-                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td>-NPR 1,200</td></tr>
-                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td>+NPR 100</td></tr>
+                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td style="color:var(--success)">+NPR 120</td></tr>
+                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td style="color:var(--danger)">-NPR 1,200</td></tr>
+                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td style="color:var(--success)">+NPR 100</td></tr>
               </tbody>
             </table>
           </div>
@@ -257,24 +274,23 @@
         datasets: [{
           label: 'Earnings (NPR)',
           data: [150,200,80,120,95,420,480],
-          tension: 0.3,
+          tension: 0.4,
           borderWidth: 2,
           fill: true,
-          backgroundColor: 'rgba(124,58,237,0.14)',
-          borderColor: 'rgba(124,58,237,0.95)',
-          pointRadius: 3
+          backgroundColor: 'rgba(124,58,237,0.15)',
+          borderColor: '#7c3aed',
+          pointRadius: 4,
+          pointBackgroundColor: '#06b6d4'
         }]
       },
       options: {
         plugins:{legend:{display:false}},
         scales: {
           x:{grid:{display:false},ticks:{color:'rgba(255,255,255,0.7)'}},
-          y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.7)'}}
+          y:{grid:{color:'rgba(255,255,255,0.1)'},ticks:{color:'rgba(255,255,255,0.7)'}}
         }
       }
     });
   </script>
 </body>
 </html>
-
-
