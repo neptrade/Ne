@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nep X Trading </title>
+  <title>Nep X Trading</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      margin: 0; padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -32,28 +28,12 @@
     }
 
     /* Logo */
-    .logo-container {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo-container img {
-      max-width: 120px;
-    }
+    .logo-container { text-align: center; margin-bottom: 20px; }
+    .logo-container img { max-width: 120px; }
 
     /* Heading */
-    h1 {
-      text-align: center;
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-    h2 {
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #f1c40f;
-      margin-bottom: 30px;
-    }
+    h1 { text-align: center; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
+    h2 { text-align: center; font-size: 1.3rem; font-weight: 500; color: #f1c40f; margin-bottom: 30px; }
 
     /* Back Button */
     .back-btn {
@@ -75,6 +55,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .profile {
       display: flex;
@@ -82,15 +64,13 @@
       gap: 12px;
     }
     .profile img {
-      width: 40px; height: 40px;
+      width: 42px; height: 42px;
       border-radius: 50%;
       border: 2px solid #fff;
     }
-    .profile span {
-      font-size: 1rem;
-      font-weight: 600;
-    }
+    .profile span { font-size: 1rem; font-weight: 600; }
 
+    /* Rewards button */
     .earnings {
       padding: 10px 20px;
       border-radius: 8px;
@@ -101,9 +81,25 @@
       font-weight: 600;
       transition: 0.3s;
     }
-    .earnings:hover {
-      background: #3498db;
+    .earnings:hover { background: #3498db; color: #fff; }
+
+    /* Balance Button */
+    .balance-btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #3498db, #2ecc71);
       color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: 0.3s ease;
+      margin-left: 10px;
+    }
+    .balance-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     }
 
     /* Invest button */
@@ -122,9 +118,7 @@
       cursor: pointer;
       transition: 0.3s;
     }
-    .btn-invest:hover {
-      background: #1e8449;
-    }
+    .btn-invest:hover { background: #1e8449; }
 
     /* Offers */
     .offer-header {
@@ -134,10 +128,7 @@
       color: #f39c12;
       margin-bottom: 20px;
     }
-    .special-offer {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+    .special-offer { text-align: center; margin-bottom: 25px; }
     .special-offer img {
       max-width: 180px;
       border-radius: 12px;
@@ -151,30 +142,12 @@
     }
 
     /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 25px;
-    }
-    thead {
-      background: #2980b9;
-    }
-    thead th {
-      padding: 14px;
-      text-align: left;
-      color: #fff;
-    }
-    tbody tr {
-      background: #ffffff15;
-      transition: 0.3s;
-    }
-    tbody tr:hover {
-      background: #ffffff25;
-    }
-    tbody td {
-      padding: 12px 14px;
-      color: #fff;
-    }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+    thead { background: #2980b9; }
+    thead th { padding: 14px; text-align: left; color: #fff; }
+    tbody tr { background: #ffffff15; transition: 0.3s; }
+    tbody tr:hover { background: #ffffff25; }
+    tbody td { padding: 12px 14px; color: #fff; }
 
     .note {
       text-align: center;
@@ -234,6 +207,8 @@
 
     @media(max-width:768px){
       .charts canvas { flex-basis: 100%; max-width: 100%; }
+      .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .balance-btn { width: 100%; text-align: center; margin: 10px 0 0; }
     }
   </style>
 </head>
@@ -253,9 +228,9 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Avatar">
         <span>New User</span>
       </div>
-      <div>
-        <button class="earnings" onclick="location.href='Reward.html'">Rewards</button>
-        <button class="earnings" onclick="location.href='withdraw.html'">$Balance</button>
+      <div class="top-actions">
+        <button class="earnings" onclick="location.href='Reward.html'">🏆 Rewards</button>
+        <button class="balance-btn" onclick="location.href='withdraw.html'">💰 Balance: $0.00</button>
       </div>
     </div>
 
@@ -332,4 +307,6 @@
 
 </body>
 </html>
+
+
 
