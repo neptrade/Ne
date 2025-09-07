@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -7,143 +7,131 @@
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    :root{
+    :root {
       --bg-1: #0f1724;
       --bg-2: #071227;
       --card: rgba(255,255,255,0.03);
       --accent: linear-gradient(135deg,#7c3aed,#06b6d4);
-      --glass: rgba(255,255,255,0.04);
       --muted: rgba(255,255,255,0.65);
-      --success: #16a34a;
       font-family: 'Poppins', sans-serif;
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      background:linear-gradient(180deg,#071227 0%, #0b1220 100%);
-      color:#e6eef8;
+    body {
+      margin: 0;
+      background: linear-gradient(180deg,#071227 0%, #0b1220 100%);
+      color: #e6eef8;
     }
+    * { box-sizing: border-box; }
 
-    *{box-sizing:border-box}
-
-    .app{display:flex;min-height:100vh;}
-    .sidebar{width:260px;padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter:blur(6px);}
-    .main{flex:1;padding:22px;}
+    /* Layout */
+    .app { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+    }
+    .main { flex: 1; padding: 18px; }
 
     /* Sidebar */
-    .brand{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
-    .logo{width:64px;height:64px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 6px 20px rgba(12,8,24,0.6)}
-    .brand h1{font-size:18px;margin:10px 0 0}
-    .brand p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .brand { text-align: center; margin-bottom: 18px; }
+    .logo {
+      width: 60px; height: 60px;
+      border-radius: 12px;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff;
+    }
+    nav.menu { margin-top: 14px; }
+    nav.menu a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: inherit; text-decoration: none;
+      margin-bottom: 6px;
+      transition: .2s;
+    }
+    nav.menu a:hover, nav.menu a.active {
+      background: rgba(255,255,255,0.05);
+      transform: translateX(4px);
+    }
 
-    nav.menu{margin-top:14px}
-    nav.menu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:inherit;text-decoration:none;margin-bottom:6px;transition:all .18s}
-    nav.menu a:hover, nav.menu a.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));transform:translateX(6px)}
+    .profile-card {
+      margin-top: 20px; padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      display: flex; gap: 12px; align-items: center;
+    }
+    .profile-card img {
+      width: 50px; height: 50px;
+      border-radius: 50%; object-fit: cover;
+    }
+    .meta .name { font-weight: 600; font-size: 14px; }
+    .meta .level { font-size: 12px; color: var(--muted); }
 
-    .profile-card{margin-top:18px;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;gap:12px;align-items:center}
-    .profile-card img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
-    .profile-card .meta{font-size:13px}
-    .meta .name{font-weight:600}
-    .meta .level{font-size:12px;color:var(--muted)}
+    /* Cards & Grid */
+    .grid { display: grid; grid-template-columns: repeat(12,1fr); gap: 14px; }
+    .card {
+      background: var(--card);
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    }
+    .col-span-3 { grid-column: span 3; }
+    .col-span-4 { grid-column: span 4; }
+    .col-span-6 { grid-column: span 6; }
+    .col-span-8 { grid-column: span 8; }
+    .col-span-12 { grid-column: span 12; }
+    .title { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .big-value { font-size: 18px; font-weight: 700; }
 
-    /* Layout cards */
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);transition:.2s}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
-    .col-span-3{grid-column:span 3}
-    .col-span-4{grid-column:span 4}
-    .col-span-6{grid-column:span 6}
-    .col-span-8{grid-column:span 8}
-    .col-span-12{grid-column:span 12}
-
-    .card .title{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .big-value{font-size:20px;font-weight:700}
-    .muted{color:var(--muted);font-size:13px}
-
-    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn.primary{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-    /* Withdraw Button */
+    /* Buttons */
+    .btn { padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--muted); }
     .withdraw-btn {
-      background: linear-gradient(135deg, #ff7b00, #ff4500);
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      padding: 10px 22px;
-      border: none;
+      background: linear-gradient(135deg,#ff7b00,#ff4500);
+      color: #fff; font-weight: bold;
+      padding: 10px 18px;
       border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      cursor: pointer; border: none;
     }
-    .withdraw-btn:hover {
-      background: linear-gradient(135deg, #ff4500, #ff7b00);
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px; text-align: center; }
+    th { background: rgba(255,255,255,0.05); }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 
     /* Investment Table */
-    .invest-table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:12px;
-      font-size:14px;
-      overflow:hidden;
-      border-radius:12px;
-    }
-    .invest-table thead{
-      background:linear-gradient(90deg,#7c3aed,#06b6d4);
-    }
-    .invest-table thead th{
-      padding:14px;
-      text-align:center;
-      color:#fff;
-      font-weight:600;
-      font-size:15px;
-    }
-    .invest-table tbody tr{
-      background:rgba(255,255,255,0.02);
-      transition:.2s;
-    }
-    .invest-table tbody tr:hover{
-      background:rgba(124,58,237,0.08);
-      transform:scale(1.01);
-    }
-    .invest-table td{
-      padding:12px;
-      text-align:center;
-      border-top:1px solid rgba(255,255,255,0.06);
-    }
-    .invest{color:#38bdf8;font-weight:600}
-    .profit{color:#22c55e;font-weight:700}
-    .note{
-      margin-top:12px;
-      padding:10px 14px;
-      border-radius:10px;
-      background:linear-gradient(90deg,#f97316,#f43f5e);
-      font-size:13px;
-      text-align:center;
-      color:#fff;
-      font-weight:600;
+    .invest-table { margin-top: 10px; border-radius: 10px; overflow: hidden; }
+    .invest-table thead { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+    .invest { color:#38bdf8; font-weight: 600; }
+    .profit { color:#22c55e; font-weight: 700; }
+    .note {
+      margin-top: 10px;
+      padding: 10px; border-radius: 8px;
+      background: linear-gradient(90deg,#f97316,#f43f5e);
+      font-size: 13px; text-align: center; font-weight: 600;
     }
 
-    /* Responsive */
-    @media (max-width:1000px){
-      .sidebar{display:none}
-      .grid{grid-template-columns:repeat(6,1fr)}
+    /* Mobile */
+    @media(max-width: 900px) {
+      .sidebar { display: none; }
+      .grid { grid-template-columns: repeat(2,1fr); }
     }
-    @media(max-width:600px){
-      .main{padding:12px}
-      .grid{grid-template-columns:repeat(1,1fr)}
-      .invest-table td,.invest-table th{font-size:12px;padding:8px}
+    @media(max-width: 600px) {
+      .main { padding: 10px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 12px; }
+      th, td { font-size: 12px; padding: 8px; }
+      .btn, .withdraw-btn { width: 100%; margin-top: 6px; }
     }
   </style>
 </head>
@@ -153,10 +141,9 @@
     <aside class="sidebar">
       <div class="brand">
         <div class="logo">NX</div>
-        <h1>Nep X Trade</h1>
-        <p>Earn • Grow • Withdraw</p>
+        <h1 style="font-size:16px;margin:6px 0 0;">Nep X Trade</h1>
+        <p style="font-size:12px;color:var(--muted)">Earn • Grow • Withdraw</p>
       </div>
-
       <nav class="menu">
         <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
         <a href="#"><i class="fas fa-wallet"></i> Earnings</a>
@@ -166,7 +153,6 @@
         <a href="#"><i class="fas fa-star"></i> VIP</a>
         <a href="#"><i class="fas fa-cog"></i> Settings</a>
       </nav>
-
       <div class="profile-card">
         <img src="https://i.pravatar.cc/100" alt="User">
         <div class="meta">
@@ -179,70 +165,62 @@
     <!-- Main -->
     <main class="main">
       <section class="grid">
-        <!-- Balance Card -->
+        <!-- Balance -->
         <div class="card col-span-3">
           <div class="title">Total Balance</div>
           <div class="big-value">NPR 12,450.00</div>
-          <div class="muted">Available balance • Updated just now</div>
-          <div class="actions">
-            <button class="withdraw-btn" onclick="window.location.href='withdraw.html'">💸 Withdraw</button>
-            <button class="btn ghost">Deposit</button>
-          </div>
+          <button class="withdraw-btn" onclick="window.location.href='withdraw.html'">💸 Withdraw</button>
+          <button class="btn ghost">Deposit</button>
         </div>
 
         <div class="card col-span-3">
           <div class="title">Today's Earnings</div>
           <div class="big-value">NPR 420.00</div>
-          <div class="muted">From tasks & referrals</div>
         </div>
 
         <div class="card col-span-3">
           <div class="title">Pending Withdrawals</div>
           <div class="big-value">NPR 2,300.00</div>
-          <div class="muted">Processing — 1-2 business days</div>
         </div>
 
         <div class="card col-span-3">
           <div class="title">Referral Income</div>
           <div class="big-value">NPR 6,800.00</div>
-          <div class="muted">Active refs: 38</div>
         </div>
 
-        <!-- Earnings chart -->
-        <div class="card col-span-8">
+        <!-- Earnings Chart -->
+        <div class="card col-span-12">
           <div class="title">Earnings Trend</div>
           <canvas id="earningsChart" style="height:220px"></canvas>
         </div>
 
-        <!-- Tasks list -->
-        <div class="card col-span-4">
+        <!-- Tasks -->
+        <div class="card col-span-12">
           <div class="title">Tasks & Activity</div>
-          <div style="margin-top:10px">
-            <div class="task">
-              <div style="display:flex;gap:10px;align-items:center">
-                <i class="fas fa-play"></i>
-                <div>
-                  <div style="font-weight:600">Watch short videos</div>
-                  <div class="muted">Reward: NPR 15 • 12 mins</div>
-                </div>
+          <div class="task" style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+            <div style="display:flex;gap:10px;align-items:center">
+              <i class="fas fa-play"></i>
+              <div>
+                <div style="font-weight:600">Watch short videos</div>
+                <div style="color:var(--muted);font-size:12px">Reward: NPR 15 • 12 mins</div>
               </div>
-              <button class="btn primary">Start</button>
             </div>
+            <button class="btn primary">Start</button>
           </div>
         </div>
 
         <!-- Transactions -->
-        <div class="card col-span-8">
+        <div class="card col-span-12">
           <div class="title">Transaction History</div>
-          <div style="margin-top:12px;overflow:auto;max-height:240px">
-            <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <div style="overflow:auto;max-height:200px;">
+            <table>
               <thead>
                 <tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr>
               </thead>
               <tbody>
-                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td>+NPR 120.00</td></tr>
-                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td>-NPR 1,200.00</td></tr>
-                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td>+NPR 100.00</td></tr>
+                <tr><td>2025-08-31</td><td>Credit</td><td>Survey reward</td><td>+NPR 120</td></tr>
+                <tr><td>2025-08-30</td><td>Debit</td><td>Withdraw to eSewa</td><td>-NPR 1,200</td></tr>
+                <tr><td>2025-08-29</td><td>Credit</td><td>Referral bonus</td><td>+NPR 100</td></tr>
               </tbody>
             </table>
           </div>
@@ -250,13 +228,10 @@
 
         <!-- Investment Offers -->
         <div class="card col-span-12">
-          <h2 style="text-align:center;font-size:18px;font-weight:700">🕯 TODAY BEST SPECIAL OFFER 🕯</h2>
+          <h2 style="text-align:center;font-size:16px">🕯 TODAY BEST SPECIAL OFFER 🕯</h2>
           <table class="invest-table">
             <thead>
-              <tr>
-                <th>Investment</th>
-                <th>Profit Return</th>
-              </tr>
+              <tr><th>Investment</th><th>Profit Return</th></tr>
             </thead>
             <tbody>
               <tr><td class="invest">₹3,000</td><td class="profit">₹8,000</td></tr>
@@ -267,11 +242,8 @@
               <tr><td class="invest">₹50,000</td><td class="profit">₹1,50,000</td></tr>
             </tbody>
           </table>
-          <div class="note">
-            💵 MONEY WILL BE CREDITED IN YOUR ACCOUNT UNDER 30-45 MINUTES ✅
-          </div>
+          <div class="note">💵 MONEY WILL BE CREDITED IN YOUR ACCOUNT WITHIN 30–45 MINUTES ✅</div>
         </div>
-
       </section>
     </main>
   </div>
