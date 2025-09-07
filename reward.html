@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Level 1 - Locked Features</title>
+<style>
+  /* Modern font from Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Animated Background */
+  body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23d5ab, #23a6d5);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+
+  /* Container */
+  .container {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.35);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    text-shadow: 0 0 6px rgba(0,0,0,0.7);
+  }
+
+  p.note {
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  /* Feature List */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+    gap: 1.3rem;
+  }
+
+  .feature {
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .feature:hover {
+    background: rgba(255 255 255 / 0.3);
+  }
+
+  .feature.locked::after {
+    content: "🔒";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 2px black);
+  }
+
+  .feature .icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .feature .label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    text-shadow: 0 0 4px rgba(0,0,0,0.6);
+  }
+
+  /* Smoothness */
+  button, a {
+    outline: none;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  /* Back Button */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255 255 255 / 0.25);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 0 12px rgba(255 255 255 / 0.4);
+    margin-bottom: 1.8rem;
+    width: fit-content;
+  }
+
+  .back-btn:hover {
+    background: rgba(255 255 255 / 0.45);
+    transform: scale(1.05);
+  }
+
+  /* Sticker container */
+  .stickers {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 12px;
+    font-size: 2.4rem;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="back-btn" onclick="goBack()">
+      ← Back
+    </div>
+    <h1>Welcome to Level 1</h1>
+    <p class="note">You are now in 1st level. You can use these features after reaching level 2.</p>
+
+    <div class="features">
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">🎁</div>
+        <div class="label">Daily Reward</div>
+      </div>
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">🔄</div>
+        <div class="label">Trade Now</div>
+      </div>
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">💰</div>
+        <div class="label">Invest Now</div>
+      </div>
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">🎡</div>
+        <div class="label">Spin Wheel & Win</div>
+      </div>
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">🎮</div>
+        <div class="label">Play Game</div>
+      </div>
+      <div class="feature locked" title="Locked - Reach Level 2">
+        <div class="icon">🪙</div>
+        <div class="label">Earn Coins</div>
+      </div>
+    </div>
+  </div>
+<script>
+  function goBack() {
+    // Go back in history or alert if no history
+    if(history.length > 1) {
+      history.back();
+    } else {
+      alert('No page to go back to.');
+    }
+  }
+</script>
+
+</body>
+</html>

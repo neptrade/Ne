@@ -1,224 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NepX Investor</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-<style>
-  /* ===== Global Styles ===== */
-  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Roboto', sans-serif; }
-  body, html { width:100%; height:100%; overflow-x:hidden; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Growme Login</title>
 
-  /* ===== Background ===== */
-  body {
-    background: linear-gradient(-45deg, #667eea, #764ba2, #6a11cb, #2575fc);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  @keyframes gradientBG {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-  }
+  <style>
+    * { box-sizing: border-box; }
 
-  /* ===== Particle Effect ===== */
-  .particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top:0; left:0;
-    z-index:0;
-  }
-  .particle {
-    position: absolute;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    animation: float 20s linear infinite;
-  }
-  @keyframes float {
-    0% { transform: translateY(0) scale(1);}
-    50% { transform: translateY(-800px) scale(0.8);}
-    100% { transform: translateY(0) scale(1);}
-  }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1b2735);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+    }
 
-  /* ===== Card Styles ===== */
-  .card {
-    position: relative;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 40px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    animation: fadeIn 1s ease forwards;
-    z-index:1;
-  }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  @keyframes fadeIn {
-    from { opacity:0; transform: translateY(-30px);}
-    to { opacity:1; transform: translateY(0);}
-  }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 360px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      backdrop-filter: blur(12px);
+      text-align: center;
+      position: relative;
+      transition: all 0.4s ease;
+    }
 
-  h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
-    margin-bottom: 25px;
-    background: linear-gradient(90deg, #ffd700, #ff6347);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+    .container h2 {
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 1.9rem;
+      letter-spacing: 1px;
+      color: #00f6ff;
+    }
 
-  input {
-    width: 100%;
-    padding: 14px 15px 14px 40px;
-    margin: 12px 0;
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    position: relative;
-  }
-  input::placeholder { color: rgba(255,255,255,0.7); }
+    .sticker {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
 
-  input:focus { box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      transition: 0.3s;
+    }
 
-  .icon { position:absolute; margin-left:-35px; margin-top:18px; color:#fff; }
+    input::placeholder { color: #bbb; }
 
-  button {
-    width: 100%;
-    padding: 14px;
-    margin: 10px 0;
-    border:none;
-    border-radius:15px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    background: linear-gradient(90deg, #ffd700, #ff6347);
-    color:#fff;
-    transition: 0.3s ease;
-  }
-  button:hover { box-shadow:0 0 15px rgba(255,215,0,0.8); }
+    input:focus {
+      box-shadow: 0 0 12px #00f6ff;
+      background: rgba(255,255,255,0.15);
+    }
 
-  .link-btn {
-    background: transparent;
-    color:#fff;
-    margin-top:10px;
-    font-size:14px;
-  }
-  .link-btn:hover { text-decoration: underline; }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      transition: 0.3s ease;
+    }
 
-  .error { color:#ff6b6b; margin-top:10px; font-weight:bold; }
+    button:hover {
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      transform: scale(1.03);
+    }
 
-  html { scroll-behavior: smooth; }
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid #00f6ff;
+      margin-top: 14px;
+    }
 
-  @media(max-width:480px){
-    .card { padding: 25px; }
-    h1 { font-size: 28px; }
-  }
+    .btn-secondary:hover {
+      background: #00f6ff;
+      color: #000;
+    }
 
-</style>
+    .back-button {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      color: #00f6ff;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(30px);
+      position: absolute;
+    }
+
+    .visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      position: relative;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .message {
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #ff4e42;
+    }
+
+    /* Floating glow effect */
+    .container::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: #00f6ff;
+      opacity: 0.2;
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: -1;
+      animation: float 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translate(0,0); }
+      to { transform: translate(20px, 20px); }
+    }
+
+  </style>
 </head>
 <body>
 
-  <!-- ===== Particle Background ===== -->
-  <div class="particles">
-    <!-- Multiple particles -->
-    <div class="particle" style="width:8px;height:8px;top:90%;left:10%;animation-delay:0s;"></div>
-    <div class="particle" style="width:12px;height:12px;top:80%;left:20%;animation-delay:3s;"></div>
-    <div class="particle" style="width:6px;height:6px;top:85%;left:70%;animation-delay:1s;"></div>
-    <div class="particle" style="width:10px;height:10px;top:95%;left:50%;animation-delay:2s;"></div>
-    <div class="particle" style="width:7px;height:7px;top:88%;left:80%;animation-delay:4s;"></div>
-  </div>
-
-  <!-- ===== Login Card ===== -->
-  <div class="card" id="loginCard">
-    <h1>NepX Investor</h1>
-    <div style="position:relative;">
-      <span class="icon">👤</span>
-      <input type="text" id="username" placeholder="Enter Username">
-    </div>
-    <div style="position:relative;">
-      <span class="icon">🔒</span>
-      <input type="password" id="password" placeholder="Enter Password">
-    </div>
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="container visible" aria-label="Login form">
+    <div class="sticker">🔐</div>
+    <h2>Welcome to Growme</h2>
+    <input type="text" id="loginUsername" placeholder="Username" autocomplete="username" />
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" />
     <button id="loginBtn">Login</button>
-    <button class="link-btn" id="createAccountBtn">Create a New Account</button>
-    <div class="error" id="loginError"></div>
-  </div>
+    <button id="createAccountBtn" class="btn-secondary">Create a New Account</button>
+    <p id="loginMessage" class="message"></p>
+  </section>
 
-  <!-- ===== Create Account Card ===== -->
-  <div class="card" id="createCard" style="display:none;">
-    <h1>Create Account</h1>
-    <input type="text" id="packageId" placeholder="Enter Package ID">
-    <button id="buyPackageBtn">Buy Package</button>
-    <button id="backToLoginBtn" class="link-btn">Back to Login</button>
-    <div class="error" id="packageError"></div>
-  </div>
+  <!-- CREATE ACCOUNT PAGE -->
+  <section id="createAccountPage" class="container hidden" aria-label="Create new account form">
+    <button class="back-button" id="backBtn" title="Back">←</button>
+    <div class="sticker">📦</div>
+    <h2>Create New Account</h2>
+    <input type="text" id="packageId" placeholder="Enter Your Package ID" />
+    <button id="submitPackageBtn">Submit</button>
+    <p id="packageMessage" class="message"></p>
+  </section>
 
-<script>
-  // ===== Login Functionality =====
-  const loginBtn = document.getElementById('loginBtn');
-  const loginError = document.getElementById('loginError');
-  const usernameInput = document.getElementById('username');
-  const passwordInput = document.getElementById('password');
-  const predefinedUsername = 'nepxinvestor';
-  const predefinedPassword = '@nep12345';
+  <script>
+    // Elements
+    const loginPage = document.getElementById('loginPage');
+    const createAccountPage = document.getElementById('createAccountPage');
+    const loginBtn = document.getElementById('loginBtn');
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    const backBtn = document.getElementById('backBtn');
+    const submitPackageBtn = document.getElementById('submitPackageBtn');
+    const loginMessage = document.getElementById('loginMessage');
+    const packageMessage = document.getElementById('packageMessage');
 
-  loginBtn.addEventListener('click', () => {
-    const user = usernameInput.value.trim();
-    const pass = passwordInput.value.trim();
+    const validUsername = 'Growme';
+    const validPassword = '@grow4';
 
-    if(user === predefinedUsername && pass === predefinedPassword){
-      localStorage.setItem('loggedInUser', user);
-      localStorage.setItem('loggedInPass', pass);
-      loginError.textContent = '';
-      window.location.href = 'dash.html';
-    } else {
-      loginError.textContent = 'Wrong Username or Password!';
-    }
-  });
+    // Go to Create Account
+    createAccountBtn.addEventListener('click', () => {
+      loginMessage.textContent = '';
+      loginPage.classList.remove('visible');
+      loginPage.classList.add('hidden');
+      createAccountPage.classList.remove('hidden');
+      createAccountPage.classList.add('visible');
+    });
 
-  // ===== Create Account Functionality =====
-  const createAccountBtn = document.getElementById('createAccountBtn');
-  const loginCard = document.getElementById('loginCard');
-  const createCard = document.getElementById('createCard');
-  const backToLoginBtn = document.getElementById('backToLoginBtn');
+    // Back to Login
+    backBtn.addEventListener('click', () => {
+      packageMessage.textContent = '';
+      createAccountPage.classList.remove('visible');
+      createAccountPage.classList.add('hidden');
+      loginPage.classList.remove('hidden');
+      loginPage.classList.add('visible');
+    });
 
-  createAccountBtn.addEventListener('click', () => {
-    loginCard.style.display = 'none';
-    createCard.style.display = 'block';
-  });
+    // Login check
+    loginBtn.addEventListener('click', () => {
+      loginMessage.textContent = '';
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
 
-  backToLoginBtn.addEventListener('click', () => {
-    createCard.style.display = 'none';
-    loginCard.style.display = 'block';
-  });
+      if(username === validUsername && password === validPassword){
+        window.location.href = 'Das.html';
+      } else {
+        loginMessage.textContent = '❌ Incorrect Username or Password';
+      }
+    });
 
-  const buyPackageBtn = document.getElementById('buyPackageBtn');
-  const packageIdInput = document.getElementById('packageId');
-  const packageError = document.getElementById('packageError');
+    // Reject package IDs
+    submitPackageBtn.addEventListener('click', () => {
+      packageMessage.style.color = '#ff4e42';
+      packageMessage.textContent = '❌ Wrong Package ID. Please try again.';
+    });
 
-  buyPackageBtn.addEventListener('click', () => {
-    const packageId = packageIdInput.value.trim();
-    if(packageId === ''){
-      packageError.textContent = 'You need to buy a package to create an account.';
-    } else {
-      const message = `Hello, I want to buy a package ID for NepX Investor.`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
-    }
-  });
-</script>
+    // Enter key support
+    document.getElementById('loginPassword').addEventListener('keyup', e => { if(e.key === 'Enter') loginBtn.click(); });
+    document.getElementById('packageId').addEventListener('keyup', e => { if(e.key === 'Enter') submitPackageBtn.click(); });
+  </script>
 </body>
 </html>
-

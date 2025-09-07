@@ -2,382 +2,237 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Withdraw – Nep X Trade</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Withdraw - GrowUp Invest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg1:#0f172a;
-      --bg2:#0b1023;
-      --primary:#22d3ee;
-      --secondary:#a78bfa;
-      --accent:#34d399;
-      --danger:#fb7185;
-      --surface:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.12);
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-      --card-blur:14px;
-      --radius:22px;
+    :root {
+      --primary: #dc3545; /* warm red like Nepali flag */
+      --secondary: #ffc107; /* golden coin */
+      --dark: #212529;
+      --light: #f8f9fa;
+      --card-bg: #ffffff;
+      --bg: linear-gradient(145deg, #f3f4f6, #dde3ea);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
-      color:var(--text);
-      background: linear-gradient(120deg, #0b122d, #0e132a, #131a3a);
-      background-size: 200% 200%;
-      animation: bgShift 12s ease-in-out infinite;
-      overflow-x:hidden;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-    .sticker{position:fixed; inset:auto; pointer-events:none; opacity:.25; filter:blur(1px);}
-    .sticker svg{width:140px; height:140px}
-    .sticker.s1{top:6%; left:4%; animation: float 8s ease-in-out infinite}
-    .sticker.s2{bottom:8%; right:6%; animation: float 10s ease-in-out infinite .8s}
-    .sticker.s3{top:40%; right:10%; animation: float 9s ease-in-out infinite .2s}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-
-    .container{min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:32px}
-    .card{
-      width:100%; max-width:900px; background:linear-gradient( to bottom right, rgba(255,255,255,.08), rgba(255,255,255,.04) );
-      border:1px solid var(--border); border-radius:var(--radius); backdrop-filter: blur(var(--card-blur));
-      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
-      overflow:hidden;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
     }
-    .card-header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 22px; border-bottom:1px solid var(--border)}
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, var(--primary), var(--secondary)); display:grid; place-items:center; font-weight:700; color:#0b1023}
-    .title{font-weight:700; letter-spacing:.3px}
-    .actions{display:flex; gap:8px}
-    .btn{appearance:none; border:none; border-radius:14px; padding:12px 16px; font-weight:600; cursor:pointer; transition:.2s ease; 
-      background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
-      color:var(--text); border:1px solid var(--border); box-shadow:0 1px 0 rgba(255,255,255,.06) inset, 0 6px 14px rgba(0,0,0,.25)}
-    .btn:hover{transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.35)}
-    .btn:active{transform:translateY(0)}
-    .btn.primary{background:linear-gradient(135deg, var(--primary), var(--secondary)); color:#0b1023; border-color:transparent}
-    .btn.ghost{background:transparent}
 
-    .card-body{padding:26px; display:grid; gap:20px}
-    .stepper{display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:.9rem}
-    .dot{width:9px; height:9px; border-radius:50%; background:var(--border)}
-    .step.active{color:var(--text); font-weight:600}
-
-    .grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
-    @media (min-width:720px){.grid{grid-template-columns:repeat(4, minmax(0,1fr))}}
-
-    .method{
-      padding:18px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      display:flex; flex-direction:column; gap:14px; align-items:flex-start; justify-content:space-between; min-height:140px;
-      position:relative; overflow:hidden; isolation:isolate; cursor:pointer; transition:.2s ease;
+    .container {
+      max-width: 600px;
+      margin: 4rem auto;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     }
-    .method:hover{transform:translateY(-3px); box-shadow:0 12px 24px rgba(0,0,0,.35)}
-    .method:after{content:""; position:absolute; inset:auto -20% -60% -20%; height:60%; background:radial-gradient(circle at 50% 0%, rgba(34,211,238,.18), transparent 60%)}
-    .method-logo{display:flex; align-items:center; gap:10px}
-    .badge{padding:6px 10px; border-radius:999px; font-size:.75rem; font-weight:700; letter-spacing:.3px; background:rgba(255,255,255,.08); border:1px solid var(--border)}
 
-    .form{display:grid; gap:16px; max-width:560px}
-    .field{display:grid; gap:8px}
-    .label{font-size:.9rem; color:var(--muted)}
-    .input{
-      width:100%; padding:14px 14px 14px 46px; border-radius:14px; background:rgba(255,255,255,.06);
-      border:1px solid var(--border); color:var(--text); outline:none; transition:.2s ease; position:relative;
+    .back-btn {
+      background-color: #eee;
+      color: var(--dark);
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s ease;
     }
-    .input:focus{border-color:var(--primary); box-shadow:0 0 0 4px rgba(34,211,238,.18)}
-    .input-wrap{position:relative}
-    .icon{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.8}
 
-    .helper{font-size:.8rem; color:var(--muted)}
-    .notice{padding:14px 16px; border-radius:14px; border:1px dashed var(--border); background:rgba(255,255,255,.04); color:var(--muted)}
-    .center{display:grid; place-items:center; text-align:center; gap:14px}
-    .spinner{width:60px; height:60px; border-radius:50%; border:6px solid rgba(255,255,255,.15); border-top-color:var(--primary); animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .progress{width:100%; max-width:420px; height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden}
-    .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--primary), var(--secondary)); animation: load 2.4s ease forwards}
-    @keyframes load{to{width:100%}}
-    .receipt{width:100%; max-width:620px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border-radius:20px; overflow:hidden}
-    .receipt-head{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px dashed var(--border)}
-    .receipt-body{padding:20px; display:grid; gap:10px}
-    .row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.06)}
-    .row:last-child{border-bottom:none}
-    .k{color:var(--muted)}
-    .fab{position:fixed; bottom:20px; right:20px; padding:14px 16px; border-radius:16px; z-index:50}
-    [data-reveal]{opacity:0; transform:translateY(10px); transition:.5s}
-    [data-reveal].show{opacity:1; transform:none}
+    .back-btn:hover {
+      background-color: #ddd;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2 img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, #ffe9b0, #ffd36b);
+      color: #111;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .balance-card::after {
+      content: 'NPR';
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #555;
+      background: #fff8e1;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .balance-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .balance-info {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #333;
+    }
+
+    .withdraw-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .method {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .method:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .method-logo {
+      height: 50px;
+      margin-bottom: 0.6rem;
+    }
+
+    .method-logo img {
+      max-height: 100%;
+      border-radius: 50%;
+    }
+
+    .method span {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .withdraw-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .withdraw-btn:hover {
+      background-color: #bb2d3b;
+    }
+
+    .notice {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      text-align: center;
+      color: #c82333;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+    }
   </style>
 </head>
 <body>
-  <!-- stickers -->
-  <div class="sticker s1" aria-hidden="true">
-    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
-      <circle cx="60" cy="60" r="58" stroke="url(#g1)" stroke-width="4" opacity=".6"/>
-    </svg>
-  </div>
-  <div class="sticker s2" aria-hidden="true">
-    <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8" y="8" width="124" height="124" rx="26" stroke="#34d399" stroke-width="4" opacity=".6"/>
-    </svg>
-  </div>
-  <div class="sticker s3" aria-hidden="true">
-    <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30 70c0-22 18-40 40-40s40 18 40 40-18 40-40 40S30 92 30 70Z" stroke="#22d3ee" stroke-width="4" opacity=".5"/>
-    </svg>
-  </div>
 
-  <main class="container">
-    <section class="card" id="appCard">
-      <header class="card-header">
-        <div class="brand">
-          <div class="logo">NX</div>
-          <div>
-            <div class="title">Nep X Trade</div>
-            <div style="font-size:.85rem; color:var(--muted)">Secure Withdrawals • Pro UI</div>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn ghost" id="btnBack" title="Back">⟵ Back</button>
-          <button class="btn" id="btnRefresh" title="Refresh">⟲ Refresh</button>
-        </div>
-      </header>
+  <div class="container">
+    <button class="back-btn" onclick="history.back()">← Back</button>
 
-      <div class="card-body">
-        <div class="stepper" id="stepper">
-          <span class="step active">1. Select Method</span><span class="dot"></span>
-          <span class="step">2. Fill Details</span><span class="dot"></span>
-          <span class="step">3. Processing</span><span class="dot"></span>
-          <span class="step">4. Receipt</span>
-        </div>
+    <h2><img src="https://cdn-icons-png.flaticon.com/512/2165/2165063.png" alt="Coin Icon">Earnings</h2>
 
-        <div id="view-methods" data-reveal>
-          <h2 style="margin:6px 0 14px">Withdraw Money</h2>
-          <p class="helper" style="margin-top:-6px; margin-bottom:16px">Choose a method to continue</p>
-          <div class="grid">
-            <button class="method" data-method="esewa" aria-label="eSewa"><div class="method-logo"><svg width="28" height="28"><circle cx="12" cy="12" r="10" fill="#22c55e"/><path d="M7.5 12h9 M12 7.5v9" stroke="white" stroke-width="2" stroke-linecap="round"/></svg><strong>eSewa</strong></div><span class="badge">Instant</span></button>
-            <button class="method" data-method="khalti" aria-label="Khalti"><div class="method-logo"><svg width="28" height="28"><rect x="3" y="4" width="18" height="16" rx="4" fill="#7c3aed"/><path d="M8 8h8v8H8z" stroke="white" stroke-width="2"/></svg><strong>Khalti</strong></div><span class="badge">Wallet</span></button>
-            <button class="method" data-method="bank" aria-label="Bank"><div class="method-logo"><svg width="28" height="28"><path d="M3 9l9-5 9 5v2H3V9Zm1 3h16v7H4v-7Z" fill="#38bdf8"/></svg><strong>Bank</strong></div><span class="badge">NEFT</span></button>
-            <button class="method" data-method="card" aria-label="Card"><div class="method-logo"><svg width="28" height="28"><rect x="3" y="5" width="18" height="14" rx="3" fill="#22d3ee"/><rect x="5" y="9" width="14" height="2" fill="#0b1023" opacity=".6"/></svg><strong>Card</strong></div><span class="badge">Visa/Master</span></button>
-          </div>
-          <div class="notice" style="margin-top:16px">Tip: You can use the ⟵ Back button anytime to return here.</div>
-        </div>
+    <div class="balance-card">
+      <div class="balance-amount">Rs 1800.0 </div>
+      <div class="balance-info">Your available balance in Grow-Up Invest</div>
+    </div>
 
-        <div id="view-form" hidden data-reveal>
-          <h2 id="formTitle" style="margin:6px 0 6px">Enter Details</h2>
-          <p id="formSubtitle" class="helper" style="margin-top:-4px; margin-bottom:12px"></p>
-          <form id="withdrawForm" class="form" novalidate>
-            <div id="dynamicFields"></div>
-            <div class="field">
-              <label class="label" for="amount">Amount</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">₨</span>
-                <input id="amount" name="amount" class="input" inputmode="decimal" placeholder="Enter amount (₨2,500–₨50,000)" required />
-              </div>
-              <small class="helper">Only amounts between ₨2,500 and ₨50,000 are allowed</small>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
-              <button type="button" class="btn" data-quick="2500">₨2,500</button>
-              <button type="button" class="btn" data-quick="5000">₨5,000</button>
-              <button type="button" class="btn" data-quick="10000">₨10,000</button>
-            </div>
-            <button type="submit" class="btn primary" id="btnWithdraw">Withdraw</button>
-            <div class="notice">Your information is encrypted and processed securely.</div>
-          </form>
+    <div class="withdraw-methods">
+      <div class="method">
+        <div class="method-logo">
+          <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/esewa_20200118185351%20(1).jpg" alt="Esewa Logo">
         </div>
-
-        <div id="view-processing" class="center" hidden data-reveal>
-          <div class="spinner" role="status" aria-label="Processing"></div>
-          <div class="progress"><div class="bar"></div></div>
-          <p class="helper">Processing your withdrawal… please wait</p>
-        </div>
-
-        <div id="view-receipt" hidden data-reveal>
-          <div class="receipt">
-            <div class="receipt-head">
-              <div style="display:flex; align-items:center; gap:10px">
-                <div class="logo" style="width:30px; height:30px; font-size:.9rem">NX</div>
-                <strong>Transaction Receipt</strong>
-              </div>
-              <span class="badge" id="receiptStatus">SUCCESS</span>
-            </div>
-            <div class="receipt-body">
-              <div class="row"><span class="k">Txn ID</span><span id="rTxn"></span></div>
-              <div class="row"><span class="k">Method</span><span id="rMethod"></span></div>
-              <div class="row"><span class="k">Beneficiary</span><span id="rBeneficiary"></span></div>
-              <div class="row"><span class="k">Amount</span><span id="rAmount"></span></div>
-              <div class="row"><span class="k">Date</span><span id="rDate"></span></div>
-              <div class="row"><span class="k">Status</span><span id="rStatus">Completed</span></div>
-            </div>
-          </div>
-          <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
-            <button class="btn" id="btnNew">New Withdrawal</button>
-            <button class="btn ghost" id="btnPrint">Print / Save</button>
-          </div>
-        </div>
-
+        <span>Esewa</span>
+        <button class="withdraw-btn" onclick="window.location.href='Acdetail.html'">Withdraw Now</button>
       </div>
-    </section>
-  </main>
 
-  <button class="btn primary fab" id="fabTop" title="Scroll to top">↑ Top</button>
-
-  <script>
-    const views = {
-      methods: document.getElementById('view-methods'),
-      form: document.getElementById('view-form'),
-      processing: document.getElementById('view-processing'),
-      receipt: document.getElementById('view-receipt')
-    };
-
-    const stepper = document.getElementById('stepper');
-    const steps = [...stepper.querySelectorAll('.step')];
-    function setStep(i){ steps.forEach((s,idx)=> s.classList.toggle('active', idx<=i)); }
-
-    const state = { method:null, payload:{} };
-    const btnBack = document.getElementById('btnBack');
-    const btnRefresh = document.getElementById('btnRefresh');
-    const fabTop = document.getElementById('fabTop');
-
-    btnBack.addEventListener('click', ()=>{ state.method=null; show('methods',0); });
-    btnRefresh.addEventListener('click', ()=> window.location.reload());
-    fabTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-    document.querySelectorAll('.method').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        const m = el.getAttribute('data-method');
-        state.method = m;
-        buildForm(m);
-        show('form',1);
-      });
-    });
-
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
-    },{threshold:.12});
-    document.querySelectorAll('[data-reveal]').forEach(el=> io.observe(el));
-
-    const dynamic = document.getElementById('dynamicFields');
-    const formTitle = document.getElementById('formTitle');
-    const formSubtitle = document.getElementById('formSubtitle');
-
-    function field(id,label,placeholder,icon){
-      return `<div class="field">
-        <label class="label" for="${id}">${label}</label>
-        <div class="input-wrap">
-          <span class="icon" aria-hidden="true">${icon||'✦'}</span>
-          <input id="${id}" name="${id}" class="input" placeholder="${placeholder}" required />
+      <div class="method">
+        <div class="method-logo">
+          <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/1674802727434_15aba63e-1877-4b9d-952e-227e23d4c811.png" alt="Khalti Logo">
         </div>
-      </div>`;
-    }
+        <span>Khalti</span>
+        <button class="withdraw-btn" onclick="window.location.href='Acdetail.html'">Withdraw Now</button>
+      </div>
 
-    function buildForm(method){
-      dynamic.innerHTML = '';
-      let subtitle='';
-      if(method==='bank'){
-        formTitle.textContent='Bank Withdrawal';
-        subtitle='Enter beneficiary bank details';
-        dynamic.innerHTML += field('bankName','Bank Name','e.g., Nabil Bank','🏦');
-        dynamic.innerHTML += field('bankNumber','Bank Account Number','e.g., 0123456789','#');
-      } else if(method==='esewa'){
-        formTitle.textContent='eSewa Withdrawal';
-        subtitle='Transfer to eSewa wallet';
-        dynamic.innerHTML += field('esewaName','eSewa Name','Registered name','👤');
-        dynamic.innerHTML += field('esewaNumber','eSewa Number','98XXXXXXXX','📱');
-      } else if(method==='khalti'){
-        formTitle.textContent='Khalti Withdrawal';
-        subtitle='Transfer to Khalti wallet';
-        dynamic.innerHTML += field('khaltiName','Khalti Name','Registered name','👤');
-        dynamic.innerHTML += field('khaltiNumber','Khalti Number','98XXXXXXXX','📱');
-      } else if(method==='card'){
-        formTitle.textContent='Card Withdrawal';
-        subtitle='Credit/Debit card payout';
-        dynamic.innerHTML += field('cardNumber','Card Number','#### #### #### ####','💳');
-        dynamic.innerHTML += field('cardHolder','Card Holder Name','As printed on card','👤');
-      }
-      formSubtitle.textContent=subtitle;
+      <div class="method">
+        <div class="method-logo">
+          <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/unnamed.png" alt="IMEPay Logo">
+        </div>
+        <span>IMEPay</span>
+        <button class="withdraw-btn" onclick="window.location.href='Acdetail.html'">Withdraw Now</button>
+      </div>
 
-      // quick buttons
-      document.querySelectorAll('[data-quick]').forEach(b=>{
-        b.onclick=()=>{
-          const val=parseFloat(b.dataset.quick);
-          if(val<2500 || val>50000){ alert('Amount must be between ₨2,500 and ₨50,000'); return; }
-          document.getElementById('amount').value=val;
-        }
-      });
-    }
+      <div class="method">
+        <div class="method-logo">
+          <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/bank-icon-logo-design-vector.jpg" alt="Bank Logo">
+        </div>
+        <span>Bank</span>
+        <button class="withdraw-btn" onclick="window.location.href='Acdetail.html'">Withdraw Now</button>
+      </div>
 
-    const form=document.getElementById('withdrawForm');
-    form.addEventListener('submit',(e)=>{
-      e.preventDefault();
-      const amt=parseFloat((document.getElementById('amount').value||'').replace(/,/g,''));
-      if(isNaN(amt) || amt<2500 || amt>50000){
-        alert('Invalid amount! You can only withdraw between ₨2,500 and ₨50,000.');
-        return;
-      }
-      const payload={amount:amt,method:state.method};
-      const ids=Array.from(dynamic.querySelectorAll('input')).map(i=>i.id);
-      for(const id of ids){
-        const v=document.getElementById(id).value.trim();
-        if(!v){ alert('Please fill all fields.'); return; }
-        payload[id]=v;
-      }
-      state.payload=payload;
-      processTxn();
-    });
+      <div class="method">
+        <div class="method-logo">
+          <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/6963703.png" alt="Card Logo">
+        </div>
+        <span>Card</span>
+        <button class="withdraw-btn" onclick="window.location.href='Acdetail.html'">Withdraw Now</button>
+      </div>
+    </div>
 
-    function show(view,stepIndex){
-      for(const k in views) views[k].hidden=true;
-      views[view].hidden=false;
-      setStep(stepIndex);
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
+    <div class="notice">
+      ⚠ You Can able to withdraw your money after invest,You are new in Growup Wait Until complete.
+    </div>
 
-    function processTxn(){
-      show('processing',2);
-      setTimeout(()=>{ renderReceipt(); show('receipt',3); },2400);
-    }
+    <footer>
+      © 2025 Grow-Up Invest Nepal — Secure & Trusted
+    </footer>
+  </div>
 
-    function txnId(){
-      const s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out='NX-';
-      for(let i=0;i<10;i++) out+=s[Math.floor(Math.random()*s.length)];
-      return out;
-    }
-
-    function renderReceipt(){
-      const rMethod=document.getElementById('rMethod');
-      const rBeneficiary=document.getElementById('rBeneficiary');
-      const rAmount=document.getElementById('rAmount');
-      const rDate=document.getElementById('rDate');
-      const rTxn=document.getElementById('rTxn');
-
-      rTxn.textContent=txnId();
-      rAmount.textContent=`₨ ${state.payload.amount.toLocaleString()}`;
-      rDate.textContent=new Date().toLocaleString();
-
-      if(state.method==='bank'){
-        rMethod.textContent='Bank';
-        rBeneficiary.textContent=`${state.payload.bankName} • ${state.payload.bankNumber}`;
-      } else if(state.method==='esewa'){
-        rMethod.textContent='eSewa';
-        rBeneficiary.textContent=`${state.payload.esewaName} • ${state.payload.esewaNumber}`;
-      } else if(state.method==='khalti'){
-        rMethod.textContent='Khalti';
-        rBeneficiary.textContent=`${state.payload.khaltiName} • ${state.payload.khaltiNumber}`;
-      } else if(state.method==='card'){
-        rMethod.textContent='Card';
-        rBeneficiary.textContent=`${state.payload.cardHolder} • ${state.payload.cardNumber}`;
-      }
-    }
-
-    document.getElementById('btnNew').addEventListener('click',()=>{
-      state.method=null; state.payload={}; form.reset(); dynamic.innerHTML='';
-      show('methods',0);
-    });
-    document.getElementById('btnPrint').addEventListener('click',()=> window.print());
-
-    show('methods',0);
-  </script>
 </body>
 </html>

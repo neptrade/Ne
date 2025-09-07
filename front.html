@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GrowUp Trading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    header img {
+      width: 110px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(0, 200, 255, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-top: 15px;
+      color: #00eaff;
+      text-shadow: 0 0 10px rgba(0,234,255,0.4);
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .btn {
+      padding: 12px 26px;
+      margin-top: 18px;
+      border: none;
+      background: linear-gradient(135deg, #00eaff, #0078ff);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #0078ff, #00eaff);
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #00ffd5;
+      text-shadow: 0 0 8px rgba(0,255,213,0.4);
+    }
+
+    /* Packages */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .package {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s ease;
+    }
+
+    .package:hover {
+      transform: scale(1.05);
+    }
+
+    .package img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .package h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #00ffd5;
+      margin-bottom: 15px;
+    }
+
+    /* Top Users */
+    .top-users {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .user {
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 15px;
+      width: 200px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .user:hover { transform: translateY(-5px); }
+
+    .user img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid gold;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .total-members {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #00ffcc;
+    }
+
+    /* Advantages Table */
+    .advantage-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .advantage-table thead {
+      background: #00c6ff;
+      color: #000;
+    }
+
+    .advantage-table th,
+    .advantage-table td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .advantage-table tbody tr:nth-child(even) {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .advantage-table tbody tr:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Team */
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .member {
+      text-align: center;
+      width: 220px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid #00ffd5;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    footer {
+      background: #111;
+      padding: 25px 15px;
+      text-align: center;
+      margin-top: 40px;
+      border-top: 2px solid #00c6ff;
+      color: #aaa;
+    }
+
+    footer h3 {
+      margin-bottom: 8px;
+      color: #00ffd5;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/logo.png" alt="GrowUp Trading Logo">
+    <h1>Nep X Trading</h1>
+    <p>We help you grow your money with secure and smart investment opportunities in Nepal.</p>
+    <button class="btn" onclick="location.href='login.html'">Sign In</button>
+  </header>
+
+  <!-- Investment Packages -->
+  <section>
+    <h2>Investment Packages</h2>
+    <div class="packages">
+      <div class="package">
+        <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/normal.png" alt="Normal">
+        <h3>Normal Package</h3>
+        <div class="price">NPR Rs.300/-</div>
+        <button class="btn" onclick="redirectToWhatsapp('Normal')">Buy Now</button>
+      </div>
+      <div class="package">
+        <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/siver.png" alt="Silver">
+        <h3>Silver Package</h3>
+        <div class="price">NPR Rs.500/-</div>
+        <button class="btn" onclick="redirectToWhatsapp('Silver')">Buy Now</button>
+      </div>
+      <div class="package">
+        <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/gold.png" alt="Gold">
+        <h3>Gold Package</h3>
+        <div class="price">NPR Rs.900/-</div>
+        <button class="btn" onclick="redirectToWhatsapp('Gold')">Buy Now</button>
+      </div>
+      <div class="package">
+        <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/premium.png" alt="Platinum">
+        <h3>Premium Package</h3>
+        <div class="price">NPR Rs.1450/-</div>
+        <button class="btn" onclick="redirectToWhatsapp('Platinum')">Buy Now</button>
+      </div>
+      <div class="package">
+        <img src="https://raw.githubusercontent.com/neptrade/Nep-x-trade-/refs/heads/main/daimond.png" alt="Diamond">
+        <h3>Diamond Package</h3>
+        <div class="price">NPR Rs.1750/-</div>
+        <button class="btn" onclick="redirectToWhatsapp('Diamond')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Users -->
+  <section>
+    <h2>Top Users</h2>
+    <div class="top-users">
+      <div class="user">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/4f697e87177f74d36fcd3ce4de11c086.jpg" alt="Bishnu Karki">
+        <h3>#1 Bishnu Karki</h3>
+        <p>Level 28</p>
+      </div>
+      <div class="user">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/b57d060500a81d9da302180aebbd395b.jpg" alt="Rejina Tamang">
+        <h3>#2 Rejina Tamang</h3>
+        <p>Level 26</p>
+      </div>
+      <div class="user">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/4615550ad0b619d57ae2f9b86bc909ff.jpg" alt="Umesh Rai">
+        <h3>#3 Umesh Rai</h3>
+        <p>Level 28</p>
+      </div>
+    </div>
+    <div class="total-members">🎉 Total Members: 426</div>
+  </section>
+
+  <!-- Advantages -->
+  <section>
+    <h2>Advantages of GrowUp Trading</h2>
+    <table class="advantage-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Benefit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🔒 Secure Platform</td><td>Trusted and secured investment in Nepal</td></tr>
+        <tr><td>💳 Flexible Withdrawals</td><td>Esewa, Khalti, IMEPay, Bank, or Card</td></tr>
+        <tr><td>⚡ Fast Returns</td><td>Profit within 30–40 minutes of investing</td></tr>
+        <tr><td>📱 Easy to Use</td><td>User-friendly interface and tools</td></tr>
+        <tr><td>📞 24/7 Support</td><td>Live customer assistance anytime</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Team -->
+  <section>
+    <h2>Our Team</h2>
+    <div class="team">
+      <div class="member">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/645b9fbec719e20f7c3f85e8f390114a.jpg" alt="Suresh Karki">
+        <h3>Suresh Karki</h3>
+        <p>Pokhara</p>
+        <p>Assistant</p>
+      </div>
+      <div class="member">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/c761cbf39d8c6f6eb3c38248b5b47209.jpg" alt="Prabin Khatri">
+        <h3>Prabin Khatri</h3>
+        <p>Kathmandu, Baneshwor</p>
+        <p>MD</p>
+      </div>
+      <div class="member">
+        <img src="https://raw.githubusercontent.com/nepjob/Esewa/refs/heads/main/c2a206a32491f11a3f3dbdc410a08713.jpg" alt="Sarita Magar">
+        <h3>Sarita Magar</h3>
+        <p>Manager</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Privacy & Terms</h3>
+    <p>© 2025 GrowUp Trading | Verified by Play Protect</p>
+  </footer>
+
+  <script>
+    function redirectToWhatsapp(packageName) {
+      const number = "9779704888854";
+      const message = encodeURIComponent(`I want to buy the ${packageName} Package for investing.`);
+      window.open(`https://wa.me/${number}?text=${message}`, "_blank");
+    }
+  </script>
+
+</body>
+</html>
