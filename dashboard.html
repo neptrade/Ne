@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Professional Earning Dashboard</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{
+      --bg-dark:#0b1220; --card-dark:#0f1724; --muted:#9ca3af; --accent1:#06b6d4; --accent2:#3b82f6; --success:#16a34a; --danger:#ef4444; --glass: rgba(255,255,255,0.03);
+      --bg-light:#f7fafc; --card-light:#ffffff; --text-light:#0b1220;
+      font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{margin:0;padding:0;height:100%}
+    body{background:var(--bg-dark);color:#e6eef8}
+
+    /* Layout */
+    .app{max-width:1200px;margin:18px auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--accent1),var(--accent2));font-weight:700}
+    .title{font-size:18px;font-weight:700}
+    .profile{display:flex;align-items:center;gap:10px}
+    .avatar{width:46px;height:46px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700}
+    .user-info{font-size:12px;color:var(--muted)}
+
+    /* grid */
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:14px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .row{display:flex;gap:12px;align-items:center}
+
+    /* balance card */
+    .balance-amount{font-size:24px;font-weight:700}
+    .actions{display:flex;gap:10px;margin-top:10px}
+    .btn{padding:10px 14px;border-radius:10px;border:none;background:var(--glass);cursor:pointer;color:inherit}
+    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#051025}
+    .btn.locked{opacity:0.45;cursor:not-allowed}
+
+    /* table */
+    .table{width:100%;border-collapse:collapse;margin-top:8px}
+    .table th,.table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
+    .table th{color:var(--muted);text-align:left}
+
+    /* categories */
+    .cats{display:flex;flex-wrap:wrap;gap:10px}
+    .cat{min-width:140px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);display:flex;gap:10px;align-items:center}
+    .sticker{font-size:11px;padding:6px;border-radius:6px;background:rgba(255,255,255,0.03);}
+
+    /* split area */
+    .chart-wrap{height:320px}
+    .transactions{max-height:320px;overflow:auto;margin-top:8px}
+
+    /* earnings overview */
+    .overview{display:flex;gap:8px;flex-wrap:wrap}
+    .overview .stat{flex:1;min-width:120px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02)}
+
+    /* responsive mobile */
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.chart-wrap{height:240px}}
+
+    /* light theme */
+    .light{background:var(--bg-light);color:var(--text-light)}
+    .light .card{background:var(--card-light);box-shadow:0 6px 18px rgba(10,10,10,0.06)}
+
+    .profit{color:var(--success);font-weight:700}
+    .loss{color:var(--danger);font-weight:700}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">EP</div>
+        <div>
+          <div class="title">Earning Dashboard</div>
+          <div class="small muted">Professional • Responsive • Mobile-friendly</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="profile card" style="display:flex;align-items:center;gap:10px;padding:8px">
+          <div class="avatar" id="avatar">U</div>
+          <div>
+            <div id="username" style="font-weight:700">Username</div>
+            <div class="user-info">ID: <span id="userId">#452129</span> • Level <span id="userLevel">1</span></div>
+          </div>
+        </div>
+        <button class="btn" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
+      </div>
+    </div>
+
+    <!-- main grid -->
+    <div class="grid">
+      <div>
+        <!-- top cards -->
+        <div class="row" style="gap:10px">
+          <div class="card" style="flex:1">
+            <div class="small muted">Balance (NPR)</div>
+            <div class="balance-amount" id="balanceVal">Loading...</div>
+            <div class="actions">
+              <button class="btn primary" id="withdrawBtn">Withdraw</button>
+              <button class="btn" id="depositBtn">Deposit / Invest</button>
+            </div>
+            <div class="small muted" style="margin-top:8px">Note: Deposit/Invest is locked until Level 2</div>
+          </div>
+
+          <div class="card" style="width:240px">
+            <div class="small muted">Profit / Loss (7d)</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:8px"><div id="pnlVal" style="font-weight:700">0%</div><div id="pnlBadge" class="small"></div></div>
+            <div class="small muted" style="margin-top:8px">Net change in last 7 days</div>
+          </div>
+        </div>
+
+        <!-- investment offers -->
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Investment Offers</div>
+            <div class="small muted">Click Invest Now to contact via WhatsApp</div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr><th>Investment Amount</th><th>Profit Return</th><th>Duration</th><th>Action</th></tr>
+            </thead>
+            <tbody id="investTbody">
+            </tbody>
+          </table>
+        </div>
+
+        <!-- earning categories -->
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Earning Categories</div>
+            <button class="btn" id="addCatBtn">Add Method</button>
+          </div>
+          <div class="cats" id="catsWrap" style="margin-top:10px"></div>
+        </div>
+
+        <!-- trading chart -->
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Trading Chart</div>
+            <div class="small muted">Interactive price chart</div>
+          </div>
+          <div class="chart-wrap"><canvas id="tradeChart"></canvas></div>
+        </div>
+
+        <!-- earnings overview -->
+        <div class="card" style="margin-top:12px">
+          <div style="font-weight:700">Earnings Overview</div>
+          <div class="overview" style="margin-top:8px">
+            <div class="stat"><div class="small muted">Daily</div><div id="dailyVal" style="font-weight:700">0</div></div>
+            <div class="stat"><div class="small muted">Weekly</div><div id="weeklyVal" style="font-weight:700">0</div></div>
+            <div class="stat"><div class="small muted">Monthly</div><div id="monthlyVal" style="font-weight:700">0</div></div>
+            <div class="stat"><div class="small muted">Lifetime</div><div id="lifetimeVal" style="font-weight:700">0</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right column: statements & transactions -->
+      <div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Statements & Transactions</div>
+            <div class="small muted">Statement summary</div>
+          </div>
+
+          <div style="margin-top:10px">
+            <div class="small muted">Total Deposit: <strong id="totalDeposit">0</strong></div>
+            <div class="small muted">Total Withdrawal: <strong id="totalWithdraw">0</strong></div>
+            <div class="small muted">Total Earnings: <strong id="totalEarning">0</strong></div>
+          </div>
+
+          <div class="transactions">
+            <table class="table">
+              <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody id="transTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div style="font-weight:700">User Chart</div>
+          <div style="margin-top:10px"><canvas id="userChart" style="height:180px"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to add category (simple) -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center">
+    <div style="background:#0f1724;padding:16px;border-radius:10px;width:320px">
+      <div style="font-weight:700;margin-bottom:8px">Add Earning Method</div>
+      <input id="newCatName" placeholder="Method name" style="width:100%;padding:8px;border-radius:8px;border:none;margin-bottom:8px">
+      <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="modalCancel">Cancel</button><button class="btn primary" id="modalSave">Save</button></div>
+    </div>
+  </div>
+
+<script>
+  // -------- sample state and helpers --------
+  const state = {
+    user: {id:'#452129', name:'Username', level:1}, // change level to >=2 to unlock
+    balance: 87425.50, // NPR
+    transactions: [
+      {date:'2025-09-09',type:'Deposit',amount:5000,status:'Completed'},
+      {date:'2025-09-09',type:'Earning',amount:125.5,status:'Completed'},
+      {date:'2025-09-08',type:'Withdraw',amount:2000,status:'Pending'},
+      {date:'2025-09-03',type:'Referral',amount:500,status:'Completed'},
+      {date:'2025-08-29',type:'Earning',amount:3250,status:'Completed'},
+    ],
+    investments:[
+      {amount:3000,profit:5000,duration:'30 min'},
+      {amount:1000,profit:1500,duration:'15 min'},
+    ],
+    earningsOverview:{daily:1550,weekly:8200,monthly:34000,lifetime:452000},
+    pnl7: 3.24 // %
+  }
+
+  function formatNPR(v){return 'Rs ' + Number(v).toLocaleString('en-NP',{minimumFractionDigits:0,maximumFractionDigits:0})}
+  function formatNPR2(v){return 'Rs ' + Number(v).toLocaleString('en-NP',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+  // set header/user
+  document.getElementById('userId').innerText = state.user.id
+  document.getElementById('username').innerText = state.user.name
+  document.getElementById('userLevel').innerText = state.user.level
+  document.getElementById('avatar').innerText = state.user.name.charAt(0).toUpperCase()
+
+  // balance and overview
+  document.getElementById('balanceVal').innerText = formatNPR2(state.balance)
+  document.getElementById('dailyVal').innerText = formatNPR(state.earningsOverview.daily)
+  document.getElementById('weeklyVal').innerText = formatNPR(state.earningsOverview.weekly)
+  document.getElementById('monthlyVal').innerText = formatNPR(state.earningsOverview.monthly)
+  document.getElementById('lifetimeVal').innerText = formatNPR(state.earningsOverview.lifetime)
+
+  // statement summary
+  const totalDeposit = state.transactions.filter(t=>t.type==='Deposit').reduce((s,t)=>s+t.amount,0)
+  const totalWithdraw = state.transactions.filter(t=>t.type==='Withdraw').reduce((s,t)=>s+t.amount,0)
+  const totalEarning = state.transactions.filter(t=>t.type==='Earning' || t.type==='Referral').reduce((s,t)=>s+t.amount,0)
+  document.getElementById('totalDeposit').innerText = formatNPR(totalDeposit)
+  document.getElementById('totalWithdraw').innerText = formatNPR(totalWithdraw)
+  document.getElementById('totalEarning').innerText = formatNPR(totalEarning)
+
+  // pnl
+  const pnlEl = document.getElementById('pnlVal')
+  const pnlBadge = document.getElementById('pnlBadge')
+  pnlEl.innerText = (state.pnl7>=0?'+':'') + state.pnl7 + '%'
+  pnlBadge.innerText = state.pnl7>=0? ' Profit':' Loss'
+  pnlBadge.className = state.pnl7>=0? 'small profit':'small loss'
+
+  // transactions table
+  const transTbody = document.getElementById('transTbody')
+  state.transactions.forEach(t=>{
+    const tr = document.createElement('tr')
+    tr.innerHTML = `<td class='small'>${t.date}</td><td>${t.type}</td><td>${formatNPR(t.amount)}</td><td>${t.status==='Completed'? '<span class="small profit">'+t.status+'</span>':'<span class="small loss">'+t.status+'</span>'}</td>`
+    transTbody.appendChild(tr)
+  })
+
+  // investments table
+  const investTbody = document.getElementById('investTbody')
+  state.investments.forEach(inv=>{
+    const tr = document.createElement('tr')
+    const waMessage = encodeURIComponent(`Hello, I want to invest Rs ${inv.amount} in the offer (profit: Rs ${inv.profit}, duration: ${inv.duration}). My ID: ${state.user.id}`)
+    const waLink = `https://wa.me/9779704888854?text=${waMessage}`
+    tr.innerHTML = `<td>${formatNPR(inv.amount)}</td><td>${formatNPR(inv.profit)}</td><td>${inv.duration}</td><td><button class='btn' ${state.user.level<2?"class='btn locked' disabled":''} onclick="location.href='${waLink}'">Invest Now</button></td>`
+    investTbody.appendChild(tr)
+  })
+
+  // earning categories
+  const baseCats = [
+    {name:'Watch Ads & Videos',locked:true},
+    {name:'Play Casino',locked:true},
+    {name:'Trading',locked:true},
+    {name:'Complete a Task',locked:true},
+    {name:'Refer a Friend',locked:true},
+    {name:'Affiliate Marketing',locked:true}
+  ]
+  const catsWrap = document.getElementById('catsWrap')
+  function renderCats(){
+    catsWrap.innerHTML=''
+    baseCats.forEach(c=>{
+      const div = document.createElement('div')
+      div.className = 'cat'
+      const isLocked = state.user.level < 2 && c.locked
+      div.innerHTML = `<div style='width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center'><i class='fa-solid fa-gem'></i></div><div><div style='font-weight:700'>${c.name} ${isLocked?" <span class=\"sticker\">Locked</span>":""}</div><div class='small muted'>${isLocked?"Unlock at level 2":"Start earning"}</div></div>`
+      if(!isLocked){
+        div.style.cursor='pointer'
+        div.addEventListener('click',()=>alert(`Open ${c.name} flow (demo)`))
+      }
+      catsWrap.appendChild(div)
+    })
+  }
+  renderCats()
+
+  // modal add category
+  const modal = document.getElementById('modal')
+  document.getElementById('addCatBtn').addEventListener('click',()=>{modal.style.display='flex'})
+  document.getElementById('modalCancel').addEventListener('click',()=>{modal.style.display='none'})
+  document.getElementById('modalSave').addEventListener('click',()=>{
+    const name = document.getElementById('newCatName').value.trim()
+    if(!name) return alert('Enter a name')
+    baseCats.push({name,locked:false})
+    document.getElementById('newCatName').value=''
+    modal.style.display='none'
+    renderCats()
+  })
+
+  // theme toggle
+  const app = document.getElementById('app')
+  const themeToggle = document.getElementById('themeToggle')
+  let light = false
+  themeToggle.addEventListener('click',()=>{
+    light = !light
+    if(light) app.classList.add('light')
+    else app.classList.remove('light')
+  })
+
+  // withdraw & deposit buttons
+  document.getElementById('withdrawBtn').addEventListener('click',()=>{
+    // redirect to withdraw.html
+    window.location.href = 'withdraw.html'
+  })
+  const depositBtn = document.getElementById('depositBtn')
+  if(state.user.level < 2){
+    depositBtn.classList.add('locked')
+    depositBtn.addEventListener('click',()=>alert('Deposit/Invest feature is locked until Level 2'))
+  } else {
+    depositBtn.addEventListener('click',()=>alert('Open deposit flow (demo)'))
+  }
+
+  // charts
+  const tradeCtx = document.getElementById('tradeChart').getContext('2d')
+  const priceData = [82000,82500,81800,83000,84000,83500,85000,84500,86000,87000,86000,88000,89500,90000]
+  new Chart(tradeCtx,{type:'line',data:{labels:priceData.map((_,i)=>i+1),datasets:[{label:'Price (NPR)',data:priceData,fill:true,tension:0.25,pointRadius:2}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}})
+
+  const userCtx = document.getElementById('userChart').getContext('2d')
+  new Chart(userCtx,{type:'bar',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Earnings',data:[1500,2000,1200,1800,1400,2200,900]}]},options:{plugins:{legend:{display:false}}}})
+
+  // small note: in production, fetch real data via API and protect user actions on server side
+</script>
+</body>
+</html>
