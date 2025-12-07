@@ -130,7 +130,7 @@
       <input type="text" id="accountNumber" name="accountNumber" placeholder="1234567890" required />
 
       <label for="amount">Withdraw Amount (₹):</label>
-      <input type="number" id="amount" name="amount" placeholder="2500 - 50000" required />
+      <input type="number" id="amount" name="amount" placeholder="4500 - 50000" required />
 
       <button type="submit">Submit</button>
     </form>
@@ -160,7 +160,7 @@
       }
 
       if (amount < 2500) {
-        showNotice('Minimum withdrawal amount is ₹2,500.', 'error');
+        showNotice('Minimum withdrawal amount is ₹4,500.', 'error');
         return;
       }
 
@@ -179,4 +179,5 @@
     }
   </script>
 </body>
+
 </html>
